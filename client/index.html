@@ -1,0 +1,58 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>doin work with chatbots</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.5/botui-theme-default.css" integrity="sha256-9GQA58T94e+H7SwQtbiNzOaji6Hhoqk+e9S876gVrhU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.5/botui.min.css" integrity="sha256-pf2MFjBX1eqbkBjXBRBkcD70wmPJca/fNMCtaDVo0K8=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js" integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.5/botui.min.js" integrity="sha256-sEZvltFKjQBjJEL1ziZ+yo05coVxgDuzwTzVeimPX+o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <style>
+        .chat-window {
+            display:none;
+        }
+
+        #show {
+            position: fixed;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <button id="show">Show Chat</button>
+
+    <div id="bot" class="chat-window">
+        <bot-ui></bot-ui>
+    </div>
+
+
+    <script>
+        var botui = new BotUI('bot');
+        
+        var button = document.getElementById('show');
+        button.addEventListener('click', function(){
+            
+            $('#bot').show();
+            
+            botui.message.add({
+                content: 'Hello from bot'
+            }).then(function() {
+                botui.action.text({
+                    action: {
+                        placeholder: 'Enter your name'
+                    }
+                })
+            });
+
+        });
+    </script>
+</body>
+</html>
