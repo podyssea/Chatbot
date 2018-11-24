@@ -1,37 +1,38 @@
 // this is where the chatbot will send and receive data to and from the server
 
-function print(d){ // too lazy to write entire console.log
+function print(d) { // too lazy to write entire console.log
     console.log(d);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     let botui = new BotUI('bot');
 
-    function sendMessageToUser(text){
+    function sendMessageToUser(text) {
         // this will send a message to the user
         botui.message.add({
             content: text
         });
     }
 
-    function sendMessageWithActionToUser(text, action, data){ // subject to change
+    function sendMessageWithActionToUser(text, messageAction, action, data) { // subject to change
         // this will send a message to the user and ask for something in return (an action). actions can be found on botui docs
         // for now keep it simple as there isn't a backend to work with
 
+        // for now let's just do two of the actions that are possible, the textual input and the buttons
         let actions = {
-            'input': (t) => botui.action.text({action:{placeholder: t}}),
-            'button': function () {
-                
-            }
+            'input': (text) => botui.action.text({action: {placeholder: text}}),
+            'button': (buttons) => botui.action.button({action: [buttons]}) // buttons will be an array of arrays where 0 is text and 1 is value. these are generated elsewhere
         };
 
-        if (action === 'input') {
-            botui.message.add({
-                content: text
-            }).then(function () {
-                actions[action](text)
-            });
-        }
+        botui.message.add({
+            content: text
+        }).then(function () {
+            actions[action](messageAction).then(function (res) {
+                // do something with whatever the user writes
+                print(res.value);
+            })
+        });
+
     }
 
     function sendToServer(message) {
@@ -55,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
 
-        sendMessageToUser("Hello there");
-        sendMessageWithActionToUser("General Kenobi", 'input', {});
+        // sendMessageToUser("Hello there");
+        sendMessageWithActionToUser("Hello there", 'General Kenobi', 'input');
 
     });
 });
