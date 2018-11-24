@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.5/botui.min.css" integrity="sha256-pf2MFjBX1eqbkBjXBRBkcD70wmPJca/fNMCtaDVo0K8=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js" integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/botui/0.3.5/botui.min.js" integrity="sha256-sEZvltFKjQBjJEL1ziZ+yo05coVxgDuzwTzVeimPX+o=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>-->
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> -->
     
     <style>
@@ -56,25 +56,6 @@
     </div>
     
     
-    <script>
-        var botui = new BotUI('bot');
-        
-        var button = document.getElementById('show');
-        button.addEventListener('click', function(){
-            
-            $('#bot').show();
-            
-            botui.message.add({
-                content: 'Hello from bot'
-            }).then(function() {
-                botui.action.text({
-                    action: {
-                        placeholder: 'Enter your name'
-                    }
-                })
-            });
-            
-        });
-    </script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
