@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // for now let's just do two of the actions that are possible, the textual input and the buttons
         let actions = {
             'input': (text) => botui.action.text({action: {placeholder: text}}),
-            'button': (buttons) => botui.action.button({action: [buttons]}) // buttons will be an array of arrays where 0 is text and 1 is value. these are generated elsewhere
+            'button': (buttons) => botui.action.button({action: buttons}) // buttons will be an array of objects where key is text and value is value. these are generated elsewhere
         };
 
         botui.message.add({
@@ -57,7 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // sendMessageToUser("Hello there");
-        sendMessageWithActionToUser("Hello there", 'General Kenobi', 'input');
+        // sendMessageWithActionToUser("Hello there", 'General Kenobi', 'input');
+        // sendMessageWithActionToUser("Hello there", [{text:'Do', value:'It'}], "button", '');
 
     });
 });
