@@ -18,13 +18,19 @@ const theme = {
 const steps = [
   {
     id: '0',
-    message: 'Welcome to react chatbot!',
+    message: 'wassss your name?',
     trigger: '1',
   },
   {
     id: '1',
     user: true,
-    end: false,
+    trigger: '2',
+  },
+  {
+    id: '2',
+    user: false,
+    message : "well hello there {previousValue}",
+    end: true,
   },
 ];
 
