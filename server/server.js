@@ -1,5 +1,7 @@
 const fastify = require('fastify')();
+const cors = require('fastify-cors');
 
+fastify.register(cors);
 
 const projectId = 'prototype-624d5';
 // const sessionId = 'quickstart-session-id';
@@ -53,9 +55,11 @@ fastify.post('/message', async (req, res) => {
 // this starts the server on port 3000
 const start = async () => {
     try {
-        await fastify.listen(3000);
-        fastify.log.info('server listening on 3000');
+        await fastify.listen(4000);
+        console.log('server listening on 4000');
+        fastify.log.info('server listening on 4000');
     } catch (err) {
+        console.log(err);
         fastify.log.error(err);
         process.exit(1);
     }

@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "dialogflow": "^0.7.0",
-    "fastify": "^1.13.1"
+    "fastify": "^1.13.1",
+    "fastify-cors": "^0.2.0"
   }
 }
