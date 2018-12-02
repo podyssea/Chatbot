@@ -1,0 +1,16 @@
+{
+  "name": "chatbot-server",
+  "version": "1.0.0",
+  "description": "this is where the server code will go aka python (or whatever we choose to use)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dialogflow": "^0.7.0",
+    "fastify": "^1.13.1",
+    "fastify-cors": "^0.2.0"
+  }
+}
