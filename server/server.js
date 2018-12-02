@@ -2,48 +2,52 @@ const fastify = require('fastify')();
 
 
 const projectId = 'prototype-624d5';
-const sessionId = 'quickstart-session-id';
-const query = 'When does course begin?';
+// const sessionId = 'quickstart-session-id';
 const languageCode = 'en-US';
 
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient();
 
-const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+// const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
-// The text query request.
-// const request = {
-//     session: sessionPath,
-//     queryInput: {
-//         text: {
-//             text: query,
-//             languageCode: languageCode,
-//         },
-//     },
-// };
 
 fastify.post('/message', async (req, res) => {
     // get the message from the request
-    console.log(req.body.query);
-    res.send({Body: req.body});
+    let query = req.body.query;
 
+    // build the request from the message
+    // todo: see if the sessionID will be remembered from the front when integrating
+    const sessionPath = sessionClient.sessionPath(projectId, String.fromCharCode(req.id));
+    let request = {
+        session: sessionPath,
+        queryInput: {
+            text: {
+                text: query,
+                languageCode: languageCode
+            }
+        }
+    };
 
-    // sessionClient
-    //     .detectIntent(request)
-    //     .then(responses => {
-    //         console.log('Detected intent');
-    //         const result = responses[0].queryResult;
-    //         console.log(`  Query: ${result.queryText}`);
-    //         console.log(`  Response: ${result.fulfillmentText}`);
-    //         if (result.intent) {
-    //             reply.send({Intent: result.intent.displayName});
-    //         } else {
-    //             reply.send({Intent: 'No intent matched.'});
-    //         }
-    //     })
-    //     .catch(err => {
-    //         reply.send({ERROR: err});
-    //     });
+    // and now send it off to DF. the response text is in fulfillmentText
+    let dfReply = await sessionClient
+        .detectIntent(request)
+        .then(responses => {
+            console.log('Detected intent');
+            const result = responses[0].queryResult;
+            console.log(`  Query: ${result.queryText}`);
+            console.log(`  Response: ${result.fulfillmentText}`);
+            if (result.intent) {
+                return {Response: result.fulfillmentText};
+            } else {
+                return {Response: 'No intent matched.'};
+            }
+        })
+        .catch(err => {
+            return {ERROR: err};
+        });
+
+    // return it to the backend. this is the response text from the agent.
+    res.send(dfReply);
 });
 
 // this starts the server on port 3000
