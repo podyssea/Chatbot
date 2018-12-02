@@ -22,6 +22,14 @@ $ export GOOGLE_APPLICATION_CREDENTIALS=/home/anguel/PycharmProjects/dissertatio
 Once this is done, still in the same directory on the command line, run 
 
 ```
+$ npm install
+```
+which will install all necessary modules.
+
+After that, in the same directory, run
+
+```
 $ npm run dev
 ```
+
 which will start the api server for you. This server will run on port 4000. This is different than the React Webpack server because this is the backend and communicates with DialogFlow.
