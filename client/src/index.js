@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 
-// import './index.css';
 
 const render = Component =>
   ReactDOM.render(
@@ -14,4 +13,4 @@ const render = Component =>
   );
 
 render(App);
-// if (module.hot) module.hot.accept('./components/App', () => render(App));
+if (module.hot) module.hot.accept('./components/App', () => render(App));

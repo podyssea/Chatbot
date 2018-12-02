@@ -1,6 +1,5 @@
 import React from 'react';
 import ChatBot from 'react-simple-chatbot';
-import Loading from './Loading';
 import { ThemeProvider } from 'styled-components';
 
 const theme = {
