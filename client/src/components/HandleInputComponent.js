@@ -1,7 +1,8 @@
 // this is the react component that will be shown and also send the question to the backend
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+// import axios from 'axios';
+import Firebase from './Firebase/Firebase';
 import { Loading } from 'react-simple-chatbot';
 
 class HandleInputComponent extends Component {
@@ -33,16 +34,18 @@ class HandleInputComponent extends Component {
             }
         };
 
-        axios.post(intentApi, data, headers).then(resp => {
-            console.log(resp);
-            if (resp.status === 200 && resp.statusText === 'OK')
-                self.setState({loading: false, result: resp.data.Response});
-            else
-                self.setState({loading: false, result: 'Something happened, please try again.'});
-        }).catch(err => {
-            console.log(err);
-            self.setState({loading: false, result: 'Something happened, please try again.'});
-        });
+        // axios.post(intentApi, data, headers).then(resp => {
+        //     console.log(resp);
+        //     if (resp.status === 200 && resp.statusText === 'OK')
+        //         self.setState({loading: false, result: resp.data.Response});
+        //     else
+        //         self.setState({loading: false, result: 'Something happened, please try again.'});
+        // }).catch(err => {
+        //     console.log(err);
+        //     self.setState({loading: false, result: 'Something happened, please try again.'});
+        // });
+
+
 
     }
 
