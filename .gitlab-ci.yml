@@ -1,7 +1,6 @@
 image: blang/latex
 build:
   script:
-    - latexmk -pdf -cd docs/dissertation/dissertation.tex
-  artifacts:
-    paths:
-      - "*.pdf"
+    - cd client; rm -rf node_modules; npm install; npm run dev; cd ..
+    - cd server; rm -rf node_modules; npm install; npm run dev; cd ..
+    - sudo service nginx reload
