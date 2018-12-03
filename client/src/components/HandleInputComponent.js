@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Loading } from 'react-simple-chatbot';
 
+
 class HandleInputComponent extends Component {
     constructor(props) {
         super(props);
@@ -35,8 +36,10 @@ class HandleInputComponent extends Component {
 
         axios.post(intentApi, data, headers).then(resp => {
             console.log(resp);
-            if (resp.status === 200 && resp.statusText === 'OK')
+            if (resp.status === 200 && resp.statusText === 'OK'){
                 self.setState({loading: false, result: resp.data.Response});
+                self.props.triggerNextStep();
+            }
             else
                 self.setState({loading: false, result: 'Something happened, please try again.'});
         }).catch(err => {
@@ -66,14 +69,7 @@ class HandleInputComponent extends Component {
                             marginTop: 20,
                         }}
                     >
-                        {
-                            !trigger &&
-                            <button
-                                onClick={() => this.triggerNext()}
-                            >
-                                Did this answer your query?
-                            </button>
-                        }
+                    
                     </div>
                 }
             </div>
