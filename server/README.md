@@ -9,7 +9,7 @@ _Do it_
 Once in it, in the command line, write
 
 ```
-$ export GOOGLE_APPPLICATION_CREDENTIALS=ctrl+v
+$ export GOOGLE_APPLICATION_CREDENTIALS=ctrl+v
 ```
 where ctrl+v is you pasting the file path you just copied above.
 
