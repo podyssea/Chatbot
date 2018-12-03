@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const { WebhookClient } = require('dialogflow-fulfillment');
 
 admin.initializeApp({
     credential: admin.credential.applicationDefault()
@@ -37,7 +38,7 @@ exports.message = functions.https.onCall((data, context) => {
         if (result.intent) {
             let status = 200;
             let text = result.fulfillmentText;
-            if (text.charAt(text.length - 1) === '?'){
+            if (text.charAt(text.length - 1) === '?') {
                 status = 400; // this means that the return response was a question
                 // and dialogflow did not understand.
             }
@@ -47,5 +48,22 @@ exports.message = functions.https.onCall((data, context) => {
         }
     });
 
+});
+
+process.env.DEBUG = 'dialogflow:debug';
+exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+    const agent = new WebhookClient({request, response});
+    console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
+    console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+
+    function classCodeHandler(agent) {
+        // console.log(db);
+        agent.send('hello there');
+    }
+
+    // Run the proper function handler based on the matched Dialogflow intent name
+    let intentMap = new Map();
+    intentMap.set('Class code', classCodeHandler);
+    agent.handleRequest(intentMap);
 });
 
