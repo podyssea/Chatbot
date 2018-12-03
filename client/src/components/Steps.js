@@ -23,12 +23,13 @@ const steps = [
     {
         id: 'input',
         user: true,
-        trigger: 'handleInput'
+        trigger: 'handleInput',
     },
     {
         id: 'handleInput',
         component: < HandleInput />,
         trigger: 'didWeHelpMessage',
+        asMessage: true,
         waitAction: true,
     },
     {
