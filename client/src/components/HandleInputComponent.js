@@ -61,27 +61,20 @@ class HandleInputComponent extends Component {
         const {trigger, loading, result} = this.state;
 
         return (
-                <div className="handleinputcomponent">
-                    {loading ? <Loading/> : result}
-                    {
-                        !loading &&
-                        <div
-                            style={{
-                                textAlign: 'center',
-                                marginTop: 20,
-                            }}
-                        >
-                            {
-                                !trigger &&
-                                <button
-                                    onClick={() => this.triggerNext()}
-                                >
-                                    Did this answer your query?
-                                </button>
-                            }
-                        </div>
-                    }
-                </div>
+            <div className="handleinputcomponent">
+                {loading ? <Loading/> : result}
+                {
+                    !loading &&
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            marginTop: 20,
+                        }}
+                    >
+                    
+                    </div>
+                }
+            </div>
         );
     }
 }

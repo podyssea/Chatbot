@@ -3,13 +3,13 @@
 const theme = {
   background: '#f5f8fb',
   fontFamily: 'Swiss 721 BT',
-  headerBgColor: '#005398',
+  headerBgColor: '#0075B0',
   headerFontColor: '#fff',
   headerFontSize: '15px',
-  botBubbleColor: '#005398',
-  botFontColor: '#fff',
-  userBubbleColor: '#fff',
-  userFontColor: '#4a4a4a',
+  botBubbleColor: '#fff',
+  botFontColor: '#4a4a4a',
+  userBubbleColor: '#003865',
+  userFontColor: '#fff',
 };
 
 export default theme;

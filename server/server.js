@@ -39,13 +39,22 @@ fastify.post('/message', async (req, res) => {
             console.log(`  Query: ${result.queryText}`);
             console.log(`  Response: ${result.fulfillmentText}`);
             if (result.intent) {
-                return {Response: result.fulfillmentText};
+                if (result.fulfillmentText.slice(-1) === '?'){
+                    return {Response: result.fulfillmentText, Success: false};
+                }else if (result.fulfillmentText == ""){
+                    return {Response: "Sorry, this question is not supported yet.", Success: false};
+
+                }else{
+                    return {Response: result.fulfillmentText, Success: true};
+
+                }
+                
             } else {
                 return {Response: 'No intent matched.'};
             }
         })
         .catch(err => {
-            return {ERROR: err};
+            return {Error: err};
         });
 
     // return it to the backend. this is the response text from the agent.
