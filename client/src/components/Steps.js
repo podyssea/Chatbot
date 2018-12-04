@@ -4,20 +4,13 @@ import HandleInput from './HandleInputComponent';
 const steps = [
     {
         id: 'start',
-        message: 'Hello there! I\'m the UoG external relations chatbot! Would you like me to resolve a query?',
-        trigger: '1',
-    },
-    {
-        id: '1',
-        options: [
-            { value: 'yes', label: 'Yes', trigger: '2'},
-            { value: 'no', label: 'No', trigger: 'end'}
-        ],
+        message: 'Hello there! I\'m the UoG external relations chatbot!',
+        trigger: '2',
     },
     {
         id: '2',
         user: false,
-        message: 'Please enter your query.',
+        message: 'What can I help you with today?',
         trigger: 'input',
     },
     {
@@ -28,21 +21,9 @@ const steps = [
     {
         id: 'handleInput',
         component: < HandleInput />,
-        trigger: 'didWeHelpMessage',
+        trigger: 'input',
         asMessage: true,
         waitAction: true,
-    },
-    {
-        id:'didWeHelpMessage',
-        message: 'Did this resolve your query?',
-        trigger: 'didWeHelp'
-    },
-    {
-        id: 'didWeHelp',
-        options: [
-            { value: 'yes', label: 'Yes', trigger: 'end'},
-            { value: 'no', label: 'No', trigger: '2'}
-        ]
     },
     {
         id: 'end',

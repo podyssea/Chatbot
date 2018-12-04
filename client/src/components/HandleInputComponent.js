@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase';
 import { Loading } from 'react-simple-chatbot';
+// import { setFlagsFromString } from 'v8';
 
 const config = {
     apiKey: "AIzaSyBxjacU5G1EF4UC82N_JJSbrXcTLh9OT6Q",
@@ -37,14 +38,19 @@ class HandleInputComponent extends Component {
             query: query
         }).then((result) => {
             let status = result.data.status;
+            console.log(status);
             let response = result.data.resp;
+            console.log(response);
             if (status === 200) {
                 self.setState({loading: false, result: response});
+                self.triggerNext();
             } else if (status === 400) {
                 // this is where shit gets changed on the frontend to prompt the user to ask again since the question was not understood
-                self.setState({loading: false, result: 'A fatal error has occured.'});
+                self.setState({loading: false, result: 'Sorry, I didn\'t get that, could you rephrase?'});
+                self.triggerNext();
             } else if (status === 500) {
-                self.setState({loading: false, result: 'A fatal error has occured.'});
+                self.setState({loading: false, result: 'Sorry, I\'m currently unable to answer that question, Please try another question!'});
+                self.triggerNext();
                 // this is where no intent was matched i.e. the agent has not been been taught this
             }
         });
@@ -56,6 +62,7 @@ class HandleInputComponent extends Component {
             this.props.triggerNextStep();
         });
     }
+
 
     render() {
         const {trigger, loading, result} = this.state;

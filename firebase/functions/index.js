@@ -41,6 +41,8 @@ exports.message = functions.https.onCall((data, context) => {
             if (text.charAt(text.length - 1) === '?') {
                 status = 400; // this means that the return response was a question
                 // and dialogflow did not understand.
+            }else if (text.length === 0){
+                status = 500
             }
             return {resp: text, status: status};
         } else {
