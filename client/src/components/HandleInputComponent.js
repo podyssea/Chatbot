@@ -1,9 +1,18 @@
 // this is the react component that will be shown and also send the question to the backend
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import firebase from 'firebase';
 import { Loading } from 'react-simple-chatbot';
 
+const config = {
+    apiKey: "AIzaSyBxjacU5G1EF4UC82N_JJSbrXcTLh9OT6Q",
+    authDomain: "prototype-624d5.firebaseapp.com",
+    databaseURL: "https://prototype-624d5.firebaseio.com",
+    projectId: "prototype-624d5",
+    storageBucket: "prototype-624d5.appspot.com",
+    messagingSenderId: "156087064273"
+};
+firebase.initializeApp(config);
 
 class HandleInputComponent extends Component {
     constructor(props) {
@@ -23,28 +32,21 @@ class HandleInputComponent extends Component {
         const {steps} = this.props;
         const query = steps.input.value; // this is the value that the user gave aka their query string
 
-        const intentApi = 'http://localhost:4000/message'; // where to post to
-        const data = {
+        let message = firebase.functions().httpsCallable('message');
+        message({
             query: query
-        };
-        // this is needed because of the current architecture
-        const headers = {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
+        }).then((result) => {
+            let status = result.data.status;
+            let response = result.data.resp;
+            if (status === 200) {
+                self.setState({loading: false, result: response});
+            } else if (status === 400) {
+                // this is where shit gets changed on the frontend to prompt the user to ask again since the question was not understood
+                self.setState({loading: false, result: 'A fatal error has occured.'});
+            } else if (status === 500) {
+                self.setState({loading: false, result: 'A fatal error has occured.'});
+                // this is where no intent was matched i.e. the agent has not been been taught this
             }
-        };
-
-        axios.post(intentApi, data, headers).then(resp => {
-            console.log(resp);
-            if (resp.status === 200 && resp.statusText === 'OK'){
-                self.setState({loading: false, result: resp.data.Response});
-                self.props.triggerNextStep();
-            }
-            else
-                self.setState({loading: false, result: 'Something happened, please try again.'});
-        }).catch(err => {
-            console.log(err);
-            self.setState({loading: false, result: 'Something happened, please try again.'});
         });
 
     }
