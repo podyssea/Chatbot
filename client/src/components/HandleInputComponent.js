@@ -49,7 +49,7 @@ class HandleInputComponent extends Component {
                 self.setState({loading: false, result: 'Sorry, I didn\'t get that, could you rephrase?'});
                 self.triggerNext();
             } else if (status === 500) {
-                self.setState({loading: false, result: 'Sorry, I\'m currently unable to answer that question, Please try another question!'});
+                self.setState({loading: false, result: 'Sorry, I\'m currently unable to answer that question, Please rephrase or try another question!'});
                 self.triggerNext();
                 // this is where no intent was matched i.e. the agent has not been been taught this
             }
