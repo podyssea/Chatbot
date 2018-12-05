@@ -34,27 +34,22 @@ fastify.post('/message', async (req, res) => {
     let dfReply = await sessionClient
         .detectIntent(request)
         .then(responses => {
-            console.log('Detected intent');
+            console.log('Detected Intent');
             const result = responses[0].queryResult;
-            console.log(`  Query: ${result.queryText}`);
-            console.log(`  Response: ${result.fulfillmentText}`);
+            console.log(`Query: ${result.queryText}`);
+            console.log(`Response: ${result.fulfillmentText}`);
             if (result.intent) {
-                if (result.fulfillmentText.slice(-1) === '?'){
-                    return {Response: result.fulfillmentText, Success: false};
-                }else if (result.fulfillmentText == ""){
-                    return {Response: "Sorry, this question is not supported yet.", Success: false};
-
-                }else{
-                    return {Response: result.fulfillmentText, Success: true};
-
+                let status = 200;
+                let text = result.fulfillmentText;
+                if (text.length === 0) {
+                    status = 500;
                 }
-                
+                return {resp: text, status: status};
+            } else if (result.action.startsWith('smalltalk')) {
+                return {resp: result.fulfillmentText, status: 200};
             } else {
-                return {Response: 'No intent matched.'};
+                return {resp: 'No intent matched.', status: 500};
             }
-        })
-        .catch(err => {
-            return {Error: err};
         });
 
     // return it to the backend. this is the response text from the agent.
