@@ -1,6 +1,4 @@
-image: blang/latex
+image: test
 build:
   script:
-    - cd client; rm -rf node_modules; npm install; npm run dev; cd ..
-    - cd server; rm -rf node_modules; npm install; npm run dev; cd ..
-    - sudo service nginx reload
+    - ls
