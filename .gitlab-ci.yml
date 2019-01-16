@@ -1,4 +1,0 @@
-image: test
-build:
-  script:
-    - ls
