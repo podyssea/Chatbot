@@ -4,7 +4,7 @@ set -e
 
 rm -rf /home/ubuntu/dissertation
 
-git clone git@gitlab.com/modelorona/dissertation.git
+git clone git@gitlab.com:modelorona/dissertation.git
 
 cd /home/ubuntu/dissertation
 cd client
