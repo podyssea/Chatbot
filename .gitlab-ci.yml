@@ -1,6 +1,15 @@
-image: blang/latex
-build:
+image: node:slim
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - npm install
+
+stages:
+  - deploy
+        
+deploy_to_aws:
+  only:
+    - master
+  stage: deploy
   script:
-    - cd client; rm -rf node_modules; npm install; npm run dev; cd ..
-    - cd server; rm -rf node_modules; npm install; npm run dev; cd ..
-    - sudo service nginx reload
+    - bash deploy.sh
