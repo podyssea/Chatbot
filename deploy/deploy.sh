@@ -3,7 +3,7 @@ set -e
 eval $(ssh-agent -s)
 echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
-./disableHostKeyChecking.sh
+./deploy/disableHostKeyChecking.sh
 
 DEPLOY_SERVERS=$DEPLOY_SERVERS
 
@@ -13,6 +13,6 @@ echo "ALL_SERVERS ${ALL_SERVERS}"
 for server in "${ALL_SERVERS[@]}"
 do
   echo "deploying to ${server}"
-  ssh ubuntu@${server} 'bash' < ./updateServer.sh
+  ssh ubuntu@${server} 'bash' < ./deploy/updateServer.sh
 done
 
