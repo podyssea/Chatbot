@@ -10,7 +10,7 @@ def index():
     return 'Hello World!'
 
 # create a route for webhook
-@app.route('/webhook')
+@app.route('/webhook', methods=['POST'])
 def hello():
     return 'Hello World!'
 
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     app.run()
 
 # function for responses
-def results():
+'''def results():
     # build a request object
     req = request.get_json(force=True)
     # fetch action from json
@@ -32,4 +32,4 @@ def results():
 
 def webhook():
     # return response
-    return make_response(jsonify(results()))
+    return make_response(jsonify(results()))'''
