@@ -13,6 +13,8 @@ npm run build
 cd ~
 source projectenv/bin/activate
 cd ~/dissertation/server
+fuser -k -n tcp 5000
 pip install -r requirements.txt
+python app.py &
 
 sudo service nginx reload
