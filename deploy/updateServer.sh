@@ -6,9 +6,13 @@ rm -rf /home/ubuntu/dissertation
 
 git clone git@gitlab.com:modelorona/dissertation.git
 
-cd /home/ubuntu/dissertation
-cd client
+cd ~/dissertation/client
 npm install
 npm run build
+
+cd ~
+source projectenv/bin/activate
+cd ~/dissertation/server
+pip install -r requirements.txt
 
 sudo service nginx reload
