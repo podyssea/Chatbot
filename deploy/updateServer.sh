@@ -2,11 +2,11 @@
 
 set -e
 
-rm -rf /home/ubuntu/dissertation
+#rm -rf /home/ubuntu/dissertation
 
-git clone git@gitlab.com:modelorona/dissertation.git
+#git clone git@gitlab.com:modelorona/dissertation.git
 
-cd ~/dissertation/client
+cd /home/ubuntu/dissertation/client
 npm install
 npm run build
 
@@ -17,4 +17,4 @@ fuser -k -n tcp 5000
 pip install -r requirements.txt
 python app.py &
 
-sudo service nginx reload
+#sudo service nginx reload
