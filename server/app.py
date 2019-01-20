@@ -8,15 +8,15 @@ app = Flask(__name__)
 
 
 # default route
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
-    return 'Hello World!'
-
-
-# create a route for webhook
-@app.route('/webhook', methods=['POST'])
-def hello():
     return 'Hello World, from webhook!'
+
+
+# # create a route for webhook
+# @app.route('/webhook', methods=['POST'])
+# def hello():
+#     return 'Hello World, from webhook!'
 
 
 # run the app

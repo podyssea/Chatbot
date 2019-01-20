@@ -19,7 +19,6 @@ source projectenv/bin/activate
 cd ~/dissertation/server
 fuser -k -n tcp 5000
 pip install -r requirements.txt
-chmod +x app.py
-nohup ./app.py &
+python app.py &> output.log &
 
 #sudo service nginx reload
