@@ -6,6 +6,8 @@ set -e
 
 #git clone git@gitlab.com:modelorona/dissertation.git
 cd /home/ubuntu/dissertation
+git add .
+git stash
 git pull
 
 cd /home/ubuntu/dissertation/client
