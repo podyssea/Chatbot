@@ -5,6 +5,8 @@ set -e
 #rm -rf /home/ubuntu/dissertation
 
 #git clone git@gitlab.com:modelorona/dissertation.git
+cd /home/ubuntu/dissertation
+git pull
 
 cd /home/ubuntu/dissertation/client
 npm install
@@ -15,6 +17,7 @@ source projectenv/bin/activate
 cd ~/dissertation/server
 fuser -k -n tcp 5000
 pip install -r requirements.txt
-python app.py &
+chmod +x app.py
+nohup ./app.py &
 
 #sudo service nginx reload
