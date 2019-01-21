@@ -1,35 +1,15 @@
-To run this server locally, first you need to download the ```account.json``` file that was uploaded in the discord chat and store it in the root of the ```server``` folder.
+To run the server locally, run 
 
-Once this is done, open up the command line and cd into the ```server``` folder. Please note the absolute file path of the ```account.json``` file. 
-
-Copy it. 
-
-_Do it_ 
-
-Once in it, in the command line, write
-
-```
-$ export GOOGLE_APPLICATION_CREDENTIALS=ctrl+v
-```
-where ctrl+v is you pasting the file path you just copied above.
-
-For example, it could look like
-
-```
-$ export GOOGLE_APPLICATION_CREDENTIALS=/home/anguel/PycharmProjects/dissertation/server/account.json
+```bash
+$ pip install -r requirements.txt
 ```
 
-Once this is done, still in the same directory on the command line, run 
+and then
 
-```
-$ npm install
-```
-which will install all necessary modules.
-
-After that, in the same directory, run
-
-```
-$ npm run dev
+```bash
+$ python app.py
 ```
 
-which will start the api server for you. This server will run on port 4000. This is different than the React Webpack server because this is the backend and communicates with DialogFlow.
+**Important**
+
+Run this on python 3. You can make a virtual environment or use the system python.
