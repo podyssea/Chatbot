@@ -44,6 +44,8 @@ exports.message = functions.https.onCall((data, context) => {
             return {resp: text, status: status};
         } else if (result.action.startsWith('smalltalk')) {
             return {resp: result.fulfillmentText, status: 200};
+        } else if (result.action.startsWith('smalltalk.greetings.bye')) {
+            return {resp: result.fulfillmentText, status: 300};
         } else {
             return {resp: 'No intent matched.', status: 500};
         }
