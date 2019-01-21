@@ -46,3 +46,16 @@ class Database:
         records = self.cursor.fetchall()
         return records
 
+    def all_subjects(self):
+        query = """SELECT Subject_area FROM Short_Courses"""
+        self.cursor.execute(query)
+        records = self.cursor.fetchall()
+        return records
+
+    def specific_subject_courses(self, subject):
+        query = """SELECT Title from Short_Courses WHERE Subject_area = %s"""
+        self.cursor.execute(query, (subject, ))
+        records = self.cursor.fetchall()
+        return records
+
+

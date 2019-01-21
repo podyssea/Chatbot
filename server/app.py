@@ -16,6 +16,12 @@ def index():
     else:
         # request from dialogflow
         data = request.get_json()
+
+        # what follows is a very hacky way to show all courses for a specific subject. only god can judge me now
+        query_text = data['queryResult']['queryText']
+        if query_text[0: 20] == 'courses for subject ':
+            return jsonify({'fulfillmentText': intent_handler.handle(query_text)})
+
         intent = data['queryResult']['intent']["displayName"]
         return_data = intent_handler.handle(intent)
         return jsonify({'fulfillmentText': return_data})
@@ -23,21 +29,5 @@ def index():
 
 # run the app
 if __name__ == '__main__':
-    intent_handler.set_up()
     app.run()
 
-# function for responses
-'''def results():
-    # build a request object
-    req = request.get_json(force=True)
-    # fetch action from json
-    action = req.get('queryResult').get('action')
-    # return a fulfillment response
-    return {'fulfillmentText': 'This is a response from webhook.'}
-
-# create a route for webhook
-@app.route('/webhook', methods=['GET', 'POST'])
-
-def webhook():
-    # return response
-    return make_response(jsonify(results()))'''
