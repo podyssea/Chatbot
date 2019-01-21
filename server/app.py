@@ -1,5 +1,7 @@
 # import flask dependencies
-from flask import Flask, request
+from flask import Flask, request, jsonify
+# from pprint import pprint
+from server.utils import intent_handler
 
 # initialize the flask app
 app = Flask(__name__)
@@ -13,11 +15,15 @@ def index():
         return 'Hello World, from webhook!'
     else:
         # request from dialogflow
-        return request.data
+        data = request.get_json()
+        intent = data['queryResult']['intent']["displayName"]
+        return_data = intent_handler.handle(intent)
+        return jsonify({'fulfillmentText': return_data})
 
 
 # run the app
 if __name__ == '__main__':
+    intent_handler.set_up()
     app.run()
 
 # function for responses
