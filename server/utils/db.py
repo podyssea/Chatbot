@@ -47,7 +47,7 @@ class Database:
         return records
 
     def all_subjects(self):
-        query = """SELECT Subject_area FROM Short_Courses"""
+        query = """SELECT DISTINCT Subject_area FROM Short_Courses"""
         self.cursor.execute(query)
         records = self.cursor.fetchall()
         return records

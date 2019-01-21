@@ -31,8 +31,13 @@ def all_course_titles():
 
 
 def all_subjects():
+    data = database.all_subjects()
 
-    pass
+    resp = "All subjects that are available are as follows: \n\n"
+    for row in data:
+        print(row[0])
+
+    return resp + ", ".join([row[0] for row in data])
 
 
 def specific_subject_courses(subject):
