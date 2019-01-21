@@ -1,7 +1,5 @@
-#!/home/ubuntu/projectenv/bin/ python
-
 # import flask dependencies
-from flask import Flask
+from flask import Flask, request
 
 # initialize the flask app
 app = Flask(__name__)
@@ -10,13 +8,12 @@ app = Flask(__name__)
 # default route
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return 'Hello World, from webhook!'
-
-
-# # create a route for webhook
-# @app.route('/webhook', methods=['POST'])
-# def hello():
-#     return 'Hello World, from webhook!'
+    # not a request from DialogFlow
+    if request.method == 'GET':
+        return 'Hello World, from webhook!'
+    else:
+        # request from dialogflow
+        return request.data
 
 
 # run the app
