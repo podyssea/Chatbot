@@ -1,7 +1,7 @@
 # import flask dependencies
 from flask import Flask, request, jsonify
 # from pprint import pprint
-from server.utils import intent_handler
+from utils import intent_handler
 
 # initialize the flask app
 app = Flask(__name__)
