@@ -17,8 +17,6 @@ def handle(data):
         return all_course_titles()
     elif data == 'Subject Areas':
         return all_subjects()
-    elif data[0: 20] == 'courses for subject ':
-        return specific_subject_courses(str(data).split('courses for subject ')[1])
 
 
 # go into the database and get a list of all available courses
