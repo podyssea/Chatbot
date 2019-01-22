@@ -1,5 +1,5 @@
 # this file finna handle intents
-from server.utils import db
+from utils import db
 
 # TODO: figure out how a proper database connection is maintained cause this surely ain't it lol
 database = db.Database()
