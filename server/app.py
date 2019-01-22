@@ -17,13 +17,10 @@ def index():
         # request from dialogflow
         data = request.get_json()
 
-        # what follows is a very hacky way to show all courses for a specific subject. only god can judge me now
-        query_text = data['queryResult']['queryText']
-        if query_text[0: 20] == 'courses for subject ':
-            return jsonify({'fulfillmentText': intent_handler.handle(query_text)})
+        user_intent = data['queryResult']['intent']['displayName']
 
-        intent = data['queryResult']['intent']["displayName"]
-        return_data = intent_handler.handle(intent)
+        return_data = intent_handler.handle({'intent': user_intent, 'parameters': data['queryResult']['parameters']})
+
         return jsonify({'fulfillmentText': return_data})
 
 

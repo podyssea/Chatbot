@@ -13,10 +13,12 @@ def tear_down():
 
 def handle(data):
     # this is the entry point. will call the methods below and return their data
-    if data == 'Available Courses':
+    if data['intent'] == 'Available Courses':
         return all_course_titles()
-    elif data == 'Subject Areas':
+    elif data['intent'] == 'Subject Areas':
         return all_subjects()
+    elif data['intent'] == 'Subject area -> Title':
+        return specific_subject_courses(data["parameters"]["Subject_area"])
 
 
 # go into the database and get a list of all available courses
@@ -39,6 +41,8 @@ def all_subjects():
 
 
 def specific_subject_courses(subject):
-    print(subject)
-    return ""
+    data = database.specific_subject_courses(subject)
+
+    resp = "All subjects that belong to {} are as follows: \n\n".format(subject)
+    return resp + ", ".join([row[0] for row in data])
 
