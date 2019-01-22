@@ -19,8 +19,8 @@ echo "after build"
 #source ~/projectenv/bin/activate
 cd ~/dissertation/server
 echo "after cd"
-fuser -k -n tcp 5000
-echo "after killing 5000 listener"
+#fuser -k -n tcp 5000
+#echo "after killing 5000 listener"
 pip3 install -r requirements.txt
 echo "after pip3 install"
 #export FLASK_APP=app.py
