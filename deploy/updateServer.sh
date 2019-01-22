@@ -12,15 +12,20 @@ git pull
 
 cd /home/ubuntu/dissertation/client
 npm install
+echo "after install"
 npm run build
+echo "after build"
 
 #source ~/projectenv/bin/activate
 cd ~/dissertation/server
+echo "after cd"
 fuser -k -n tcp 5000
+echo "after killing 5000 listener"
 pip3 install -r requirements.txt
+echo "after pip3 install"
 #export FLASK_APP=app.py
 #export FLASK_ENV=production
 python3 app.py &> output.log &
+echo "after running application"
 
 exit
-#sudo service nginx reload
