@@ -14,7 +14,7 @@ cd /home/ubuntu/dissertation/client
 npm install
 npm run build
 
-source projectenv/bin/activate
+source ~/projectenv/bin/activate
 cd ~/dissertation/server
 fuser -k -n tcp 5000
 pip install -r requirements.txt
