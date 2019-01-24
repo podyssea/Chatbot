@@ -50,6 +50,14 @@ class HandleInputComponent extends Component {
                 self.setState({loading: false, result: 'Sorry, I\'m currently not knowledgeable enough to answer that question, Please rephrase or try another question!'});
                 self.triggerNext();
                 // this is where no intent was matched i.e. the agent has not been been taught this
+            } else if (status == 600){
+                self.setState({loading: false, result: 'You\'ve enabled text-to-speech!'});
+                self.triggerNext('speech-toggle', 'speech-toggle');
+
+            }else if (status == 700 ) {
+                self.setState({loading: false, result: 'You\'ve disabled text-to-speech!'});
+                self.triggerNext('speech-toggle', 'speech-toggle');
+
             }
         });
 

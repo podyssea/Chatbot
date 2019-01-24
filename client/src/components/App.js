@@ -9,7 +9,7 @@ import steps from './Steps';
 const App = () => {
     return (
         <ThemeProvider theme={theme}>
-            <ChatBot steps={steps} floating={true} headerTitle='External Relations' hideUserAvatar='true'/>
+            <ChatBot steps={steps} floating={true} headerTitle='Gilbert' speechSynthesis={{ enable: false, lang: 'en' }} hideUserAvatar='true'/>
         </ThemeProvider>
     );
 };

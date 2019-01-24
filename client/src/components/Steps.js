@@ -1,11 +1,12 @@
 import React from 'react';
 import HandleInput from './HandleInputComponent';
 import HandleFeedback from './HandleFeedbackComponent'
+import TextToSpeech from './TextToSpeechComponenet'
 
 const steps = [
     {
         id: 'start',
-        message: 'Hello there! I\'m the UoG external relations chatbot!',
+        message: 'Hello there! I\'m Gilbert, the UoG external relations chatbot!',
         trigger: '2',
     },
     {
@@ -30,6 +31,11 @@ const steps = [
         id: 'feedback',
         component: < HandleFeedback />,
         end: true
+    },
+    {
+        id: 'speech-toggle',
+        component: < TextToSpeech />,
+        trigger: 'input'
     },
     {
         id: 'end',
