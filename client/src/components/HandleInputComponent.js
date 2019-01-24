@@ -43,6 +43,9 @@ class HandleInputComponent extends Component {
             if (status === 200) {
                 self.setState({loading: false, result: response});
                 self.triggerNext();
+            } else if (status === 300) {
+                self.setState({loading: false, result: 'Glad we could help. Have a nice day! One last thing...if you could please rate our service, we would appreciate it!'});
+                self.triggerNext('feedback', 'feedback');
             } else if (status === 500) {
                 self.setState({loading: false, result: 'Sorry, I\'m currently not knowledgeable enough to answer that question, Please rephrase or try another question!'});
                 self.triggerNext();
@@ -52,9 +55,9 @@ class HandleInputComponent extends Component {
 
     }
 
-    triggerNext() {
+    triggerNext(value, trigger) {
         this.setState({trigger: true}, () => {
-            this.props.triggerNextStep();
+            this.props.triggerNextStep(value ? {value, trigger} : {});
         });
     }
 

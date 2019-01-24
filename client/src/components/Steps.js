@@ -1,5 +1,6 @@
 import React from 'react';
 import HandleInput from './HandleInputComponent';
+import HandleFeedback from './HandleFeedbackComponent'
 
 const steps = [
     {
@@ -24,6 +25,11 @@ const steps = [
         trigger: 'input',
         asMessage: true,
         waitAction: true,
+    },
+    {
+        id: 'feedback',
+        component: < HandleFeedback />,
+        end: true
     },
     {
         id: 'end',

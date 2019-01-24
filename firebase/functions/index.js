@@ -58,21 +58,6 @@ exports.message = functions.https.onCall((data, context) => {
 
         return {resp:text, status: status};
 
-
-        // if (result.intent) {
-        //     let status = 200;
-        //     let text = result.fulfillmentText;
-        //     if (text.length === 0) {
-        //         status = 500;
-        //     }
-        //     return {resp: text, status: status};
-        // } else if (result.action === 'smalltalk.greetings.bye') {
-        //     return {resp: result.fulfillmentText, status: 300};
-        // } else if (result.action.startsWith('smalltalk') || result.action === 'input.welcome') {
-        //     return {resp: result.fulfillmentText, status: 200};
-        // } else {
-        //     return {resp: 'No intent matched.', status: 500};
-        // }
     });
 
 });
