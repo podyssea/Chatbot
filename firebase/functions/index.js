@@ -49,17 +49,15 @@ exports.message = functions.https.onCall((data, context) => {
         } else if (smallTalkHello.indexOf(action) > -1) {
             // this is when they initiate convo or say something else that's not an intent
            status = 200;
+        } else if (action === "Text-To-Speech ON"){
+            status = 600;
+        } else if (action === "Text-To-Speech OFF"){
+            status = 700;
         } else if (intent) {
             // here we actually match an intent
             if (text.length !== 0) {
                 status = 200;
             }
-        } else if (action === "Text-To-Speech ON"){
-            status = 600
-
-        } else if (action === "Text-To-Speech OFF"){
-            status = 700
-
         }
 
         return {resp:text, status: status};
