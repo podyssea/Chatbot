@@ -5,7 +5,6 @@ import theme from './Theme';
 import steps from './Steps';
 
 
-
 const App = () => {
     return (
         <ThemeProvider theme={theme}>

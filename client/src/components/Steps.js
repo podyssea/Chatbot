@@ -1,7 +1,7 @@
 import React from 'react';
 import HandleInput from './HandleInputComponent';
 import HandleFeedback from './HandleFeedbackComponent'
-import TextToSpeech from './TextToSpeechComponenet'
+// import TextToSpeech from './TextToSpeechComponenet'
 
 const steps = [
     {
@@ -32,11 +32,11 @@ const steps = [
         component: < HandleFeedback />,
         end: true
     },
-    {
-        id: 'speech-toggle',
-        component: < TextToSpeech />,
-        trigger: 'input'
-    },
+    // {
+    //     id: 'speech-toggle',
+    //     component: < TextToSpeech />,
+    //     trigger: 'input'
+    // },
     {
         id: 'end',
         end: true,

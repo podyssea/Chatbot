@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Loading } from 'react-simple-chatbot';
+import { Loading, Header, HeaderTitle, HeaderIcon } from 'react-simple-chatbot';
 import App from './App'
 
 class TextToSpeech extends Component {
@@ -15,10 +15,6 @@ class TextToSpeech extends Component {
 
         this.triggerNext = this.triggerNext.bind(this);
     }
-}
-
-ToggleSpeech(){
-
-}
+};
 
 export default TextToSpeech;
