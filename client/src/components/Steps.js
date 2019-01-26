@@ -27,8 +27,9 @@ const steps = [
     },
     {
         id: 'feedback',
-        component: < HandleFeedback />,
-        end: true
+        component: (< HandleFeedback />),
+        trigger: 'end',
+        waitAction: true
     },
     {
         id: 'end',
