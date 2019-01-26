@@ -1,7 +1,8 @@
 // this is the react component that will be shown and also send the question to the backend
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/functions';
 import { Loading } from 'react-simple-chatbot';
 
 const config = {
@@ -71,7 +72,7 @@ class HandleInputComponent extends Component {
 
 
     render() {
-        const {trigger, loading, result} = this.state;
+        const {loading, result} = this.state;
 
         return (
             <div className="handleinputcomponent">
