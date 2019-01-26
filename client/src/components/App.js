@@ -11,7 +11,8 @@ class App extends React.Component {
         return (
             <div>
                 <ThemeProvider theme={theme}>
-                    <ChatBot steps={steps} floating={true} headerTitle='Gilbert' hideUserAvatar='true'/>
+                    <ChatBot steps={steps} floating={true} headerTitle='Gilbert'
+                             speechSynthesis={{enable: false, lang: 'en'}} hideUserAvatar='true'/>
                 </ThemeProvider>
             </div>
         );
