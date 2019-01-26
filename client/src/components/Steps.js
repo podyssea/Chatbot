@@ -1,7 +1,6 @@
 import React from 'react';
 import HandleInput from './HandleInputComponent';
 import HandleFeedback from './HandleFeedbackComponent'
-// import TextToSpeech from './TextToSpeechComponenet'
 
 const steps = [
     {
@@ -11,7 +10,6 @@ const steps = [
     },
     {
         id: '2',
-        user: false,
         message: 'What can I help you with today?',
         trigger: 'input',
     },
@@ -22,7 +20,7 @@ const steps = [
     },
     {
         id: 'handleInput',
-        component: < HandleInput />,
+        component: (< HandleInput />),
         trigger: 'input',
         asMessage: true,
         waitAction: true,
@@ -32,11 +30,6 @@ const steps = [
         component: < HandleFeedback />,
         end: true
     },
-    // {
-    //     id: 'speech-toggle',
-    //     component: < TextToSpeech />,
-    //     trigger: 'input'
-    // },
     {
         id: 'end',
         end: true,
