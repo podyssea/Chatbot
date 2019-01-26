@@ -1,6 +1,5 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const { WebhookClient } = require('dialogflow-fulfillment');
 
 admin.initializeApp({
     credential: admin.credential.applicationDefault()
@@ -16,6 +15,15 @@ const languageCode = 'en-US';
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+
+exports.feedback = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('user_feedback').add({
+        rating: data.rating,
+        comment: data.comment
+    }).then((result) => {
+        return {resp: result};
+    })
+});
 
 exports.message = functions.https.onCall((data, context) => {
     let query = data.query;
@@ -33,40 +41,36 @@ exports.message = functions.https.onCall((data, context) => {
     return sessionClient.detectIntent(request).then(responses => {
         console.log('Detected Intent');
         const result = responses[0].queryResult;
-        console.log(`  Query: ${result.queryText}`);
-        console.log(`  Response: ${result.fulfillmentText}`);
-        if (result.intent) {
-            let status = 200;
-            let text = result.fulfillmentText;
-            if (text.length === 0) {
-                status = 500;
+        console.log(result.action);
+
+        const intent = result.intent;
+        const action = result.action;
+        const text = result.fulfillmentText;
+        let status = 500; // 500 is an error
+
+        const smallTalkHello = ['smalltalk.greetings.goodevening', 'smalltalk.greetings.goodmorning', 'input.welcome', 'smalltalk.greetings.how_are_you', 'smalltalk.greetings.nice_to_meet_you', 'smalltalk.greetings.nice_to_talk_to_you', 'smalltalk.greetings.whatsup'];
+        const smallTalkBye = ['smalltalk.greetings.goodnight', 'smalltalk.greetings.bye'];
+
+        if (smallTalkBye.indexOf(action) > -1) {
+            // we need this to be able to know when we are done talking
+            status = 300;
+        } else if (smallTalkHello.indexOf(action) > -1) {
+            // this is when they initiate convo or say something else that's not an intent
+           status = 200;
+        } else if (action === "Text-To-Speech ON"){
+            status = 600;
+        } else if (action === "Text-To-Speech OFF"){
+            status = 700;
+        } else if (intent) {
+            // here we actually match an intent
+            if (text.length !== 0) {
+                status = 200;
             }
-            return {resp: text, status: status};
-        } else if (result.action.startsWith('smalltalk')) {
-            return {resp: result.fulfillmentText, status: 200};
-        } else if (result.action.startsWith('smalltalk.greetings.bye')) {
-            return {resp: result.fulfillmentText, status: 300};
-        } else {
-            return {resp: 'No intent matched.', status: 500};
         }
+
+        return {resp:text, status: status};
+
     });
 
-});
-
-process.env.DEBUG = 'dialogflow:debug';
-exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
-    const agent = new WebhookClient({request, response});
-    console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
-    console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
-
-    function classCodeHandler(agent) {
-        // console.log(db);
-        agent.send('hello there');
-    }
-
-    // Run the proper function handler based on the matched Dialogflow intent name
-    let intentMap = new Map();
-    intentMap.set('Class code', classCodeHandler);
-    agent.handleRequest(intentMap);
 });
 

@@ -1,7 +1,8 @@
 // this is the react component that will be shown and also send the question to the backend
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/functions';
 import { Loading } from 'react-simple-chatbot';
 
 const config = {
@@ -43,24 +44,35 @@ class HandleInputComponent extends Component {
             if (status === 200) {
                 self.setState({loading: false, result: response});
                 self.triggerNext();
+            } else if (status === 300) {
+                self.setState({loading: false, result: 'Glad we could help. Have a nice day! One last thing...if you could please rate our service, we would appreciate it!'});
+                self.triggerNext('feedback', 'feedback');
             } else if (status === 500) {
                 self.setState({loading: false, result: 'Sorry, I\'m currently not knowledgeable enough to answer that question, Please rephrase or try another question!'});
                 self.triggerNext();
                 // this is where no intent was matched i.e. the agent has not been been taught this
+            } else if (status === 600){
+                self.setState({loading: false, result: 'You\'ve enabled text-to-speech!'});
+                self.triggerNext('speech-toggle', 'speech-toggle');
+
+            }else if (status === 700 ) {
+                self.setState({loading: false, result: 'You\'ve disabled text-to-speech!'});
+                self.triggerNext('speech-toggle', 'speech-toggle');
+
             }
         });
 
     }
 
-    triggerNext() {
+    triggerNext(value, trigger) {
         this.setState({trigger: true}, () => {
-            this.props.triggerNextStep();
+            this.props.triggerNextStep(value ? {value, trigger} : {});
         });
     }
 
 
     render() {
-        const {trigger, loading, result} = this.state;
+        const {loading, result} = this.state;
 
         return (
             <div className="handleinputcomponent">
