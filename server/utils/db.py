@@ -14,6 +14,9 @@ class Database:
         self.cursor = None
         pass
 
+    def get_connection(self):
+        return self.connection
+
     def connect(self):
         # connects to database. returns true if connected, false if not, and a text describing what happened
         try:
