@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import firebase from 'firebase/app';
+import 'firebase/functions';
 import StarRatingComponent from 'react-star-rating-component';
 
 
@@ -8,20 +9,23 @@ class HandleFeedbackComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rating: 5
+            rating: 5,
+            editable: true,
+            comment: "", // for now, comment is empty until it is implemented as an element
         };
 
         this.triggerNext = this.triggerNext.bind(this);
     }
 
     onStarClick(nextValue, prevValue, name) {
-        this.setState({rating: nextValue});
-        console.log('star clicked');
-        // this.triggerNext();
-    }
+        this.setState({rating: nextValue, editable: false});
+        let submitFeedback = firebase.functions().httpsCallable('feedback');
 
-    componentDidMount() {
-        console.log('mounted handle feedback component');
+        submitFeedback({comment: this.state.comment, rating: nextValue}).then((res) => {
+            console.log('feedback saved');
+        });
+
+        this.triggerNext();
     }
 
     triggerNext(value, trigger) {
@@ -32,17 +36,18 @@ class HandleFeedbackComponent extends Component {
 
 
     render() {
-        const { rating } = this.state;
+        const { rating, editable } = this.state;
         // https://github.com/voronianski/react-star-rating-component this was used
         return (
             <div className="handlefeedbackcomponent">
-                <h2>
+                <h1>
                 <StarRatingComponent
                     name="feedbackRating"
                     starCount={5}
                     value={rating}
+                    editing={editable}
                     onStarClick={this.onStarClick.bind(this)}
-                /></h2>
+                /></h1>
             </div>
         );
     }

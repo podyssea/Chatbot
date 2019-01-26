@@ -1,6 +1,5 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const { WebhookClient } = require('dialogflow-fulfillment');
 
 admin.initializeApp({
     credential: admin.credential.applicationDefault()
@@ -16,6 +15,15 @@ const languageCode = 'en-US';
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+
+exports.feedback = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('user_feedback').add({
+        rating: data.rating,
+        comment: data.comment
+    }).then((result) => {
+        return {resp: result};
+    })
+});
 
 exports.message = functions.https.onCall((data, context) => {
     let query = data.query;
