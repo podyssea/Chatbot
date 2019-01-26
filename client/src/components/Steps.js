@@ -1,15 +1,15 @@
 import React from 'react';
 import HandleInput from './HandleInputComponent';
+import HandleFeedback from './HandleFeedbackComponent'
 
 const steps = [
     {
         id: 'start',
-        message: 'Hello there! I\'m the UoG external relations chatbot!',
+        message: 'Hello there! I\'m Gilbert, the UoG external relations chatbot!',
         trigger: '2',
     },
     {
         id: '2',
-        user: false,
         message: 'What can I help you with today?',
         trigger: 'input',
     },
@@ -20,10 +20,16 @@ const steps = [
     },
     {
         id: 'handleInput',
-        component: < HandleInput />,
+        component: (< HandleInput />),
         trigger: 'input',
         asMessage: true,
         waitAction: true,
+    },
+    {
+        id: 'feedback',
+        component: (< HandleFeedback />),
+        trigger: 'end',
+        waitAction: true
     },
     {
         id: 'end',

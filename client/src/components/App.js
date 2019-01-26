@@ -5,13 +5,18 @@ import theme from './Theme';
 import steps from './Steps';
 
 
+class App extends React.Component {
 
-const App = () => {
-    return (
-        <ThemeProvider theme={theme}>
-            <ChatBot steps={steps} floating={true} headerTitle='External Relations' hideUserAvatar='true'/>
-        </ThemeProvider>
-    );
-};
+    render() {
+        return (
+            <div>
+                <ThemeProvider theme={theme}>
+                    <ChatBot steps={steps} floating={true} headerTitle='Gilbert'
+                             speechSynthesis={{enable: false, lang: 'en'}} hideUserAvatar='true'/>
+                </ThemeProvider>
+            </div>
+        );
+    }
+}
 
 export default App;
