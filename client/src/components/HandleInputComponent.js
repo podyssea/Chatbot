@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/functions';
 import { Loading } from 'react-simple-chatbot';
+import Speech from '../../node_modules/react-speech/dist/react-speech';
+
 
 const config = {
     apiKey: "AIzaSyBxjacU5G1EF4UC82N_JJSbrXcTLh9OT6Q",
@@ -22,7 +24,8 @@ class HandleInputComponent extends Component {
         this.state = {
             loading: true,
             result: '',
-            trigger: false
+            trigger: false,
+            textToSpeech : false
         };
 
         this.triggerNext = this.triggerNext.bind(this);
@@ -52,12 +55,14 @@ class HandleInputComponent extends Component {
                 self.triggerNext();
                 // this is where no intent was matched i.e. the agent has not been been taught this
             } else if (status === 600){
-                self.setState({loading: false, result: 'You\'ve enabled text-to-speech!'});
-                self.triggerNext('speech-toggle', 'speech-toggle');
+                window.ttsOn = true;
+                self.setState({loading: false, result: 'You\'ve enabled text-to-speech!', textToSpeech: true});
+                self.triggerNext();
 
             }else if (status === 700 ) {
+                window.ttsOn = false;
                 self.setState({loading: false, result: 'You\'ve disabled text-to-speech!'});
-                self.triggerNext('speech-toggle', 'speech-toggle');
+                self.triggerNext();
 
             }
         });
@@ -71,12 +76,34 @@ class HandleInputComponent extends Component {
     }
 
 
+
+
     render() {
+
+        let style = {
+            play: {
+              button: {
+                width: '20',
+                height: '20',
+                cursor: 'pointer',
+                pointerEvents: 'none',
+                outline: 'none',
+                backgroundColor: '#fff',
+                border: 'solid 1px rgba(255,255,255,1)',
+                borderRadius: 0,
+                padding: 0,
+                textAlign: 'left',
+                fontFamily: 'Swiss 721 BT',
+                fontWeight: '100'
+              },
+            }
+          };
+
         const {loading, result} = this.state;
 
         return (
             <div className="handleinputcomponent">
-                {loading ? <Loading/> : result}
+                {loading ? <Loading/> : <Speech styles={style} textAsButton={true} displayText={result} voice="Google UK English Male" autostart={window.ttsOn} text={result} /> }
                 {
                     !loading &&
                     <div

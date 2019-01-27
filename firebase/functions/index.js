@@ -16,15 +16,6 @@ const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
-exports.feedback = functions.https.onCall((data, context) => {
-    return admin.firestore().collection('user_feedback').add({
-        rating: data.rating,
-        comment: data.comment
-    }).then((result) => {
-        return {resp: result};
-    })
-});
-
 exports.message = functions.https.onCall((data, context) => {
     let query = data.query;
 
@@ -45,6 +36,8 @@ exports.message = functions.https.onCall((data, context) => {
 
         const intent = result.intent;
         const action = result.action;
+        console.log(intent.displayName);
+
         const text = result.fulfillmentText;
         let status = 500; // 500 is an error
 
@@ -57,15 +50,17 @@ exports.message = functions.https.onCall((data, context) => {
         } else if (smallTalkHello.indexOf(action) > -1) {
             // this is when they initiate convo or say something else that's not an intent
            status = 200;
-        } else if (action === "Text-To-Speech ON"){
-            status = 600;
-        } else if (action === "Text-To-Speech OFF"){
-            status = 700;
         } else if (intent) {
             // here we actually match an intent
             if (text.length !== 0) {
                 status = 200;
             }
+            if (intent.displayName === "Text-To-Speech ON"){
+                status = 600;
+            } else if (intent.displayName === "Text-To-Speech OFF"){
+                status = 700;
+            }
+
         }
 
         return {resp:text, status: status};
