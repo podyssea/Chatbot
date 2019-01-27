@@ -18,7 +18,6 @@ const config = {
 firebase.initializeApp(config);
 
 class HandleInputComponent extends Component {
-    
     constructor(props) {
         super(props);
 
@@ -41,11 +40,10 @@ class HandleInputComponent extends Component {
         message({
             query: query
         }).then((result) => {
-            console.log(this.state.textToSpeech);
             let status = result.data.status;
-            // console.log(status);
+            console.log(status);
             let response = result.data.resp;
-            // console.log(response);
+            console.log(response);
             if (status === 200) {
                 self.setState({loading: false, result: response});
                 self.triggerNext();
@@ -59,7 +57,6 @@ class HandleInputComponent extends Component {
             } else if (status === 600){
                 self.setState({loading: false, result: 'You\'ve enabled text-to-speech!', textToSpeech: true});
                 self.triggerNext();
-                console.log(this.state.textToSpeech);
 
             }else if (status === 700 ) {
                 self.setState({loading: false, result: 'You\'ve disabled text-to-speech!'});
@@ -71,19 +68,39 @@ class HandleInputComponent extends Component {
     }
 
     triggerNext(value, trigger) {
-        this.setState({loading: true});
         this.setState({trigger: true}, () => {
             this.props.triggerNextStep(value ? {value, trigger} : {});
         });
     }
 
 
+
+
     render() {
+
+        let style = {
+            play: {
+              button: {
+                width: '20',
+                height: '20',
+                cursor: 'pointer',
+                pointerEvents: 'none',
+                outline: 'none',
+                backgroundColor: '#fff',
+                border: 'solid 1px rgba(255,255,255,1)',
+                borderRadius: 0,
+                padding: 0,
+                TexAlign: 'left',
+                fontFamily: 'Swiss 721 BT'
+              },
+            }
+          };
+
         const {loading, result, textToSpeech} = this.state;
 
         return (
             <div className="handleinputcomponent">
-                {loading ? <Loading/> : <Speech textAsButton={true} displayText={result} voice="Google UK English Female" autostart={textToSpeech} text={result} /> }
+                {loading ? <Loading/> : <Speech styles={style} textAsButton={true} displayText={result} voice="Google UK English Male" autostart={textToSpeech} text={result} /> }
                 {
                     !loading &&
                     <div
