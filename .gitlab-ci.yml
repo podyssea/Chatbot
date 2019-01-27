@@ -1,23 +1,23 @@
-before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - 'apt-get install python3-pip'
-
 stages:
   - test
   - deploy
 
 test_python:
+  image: python:3.6
   stage: deploy
   script:
     - cd server
-    - pip3 install -r requirements.txt
-    - python3 test_app.py
+    - pip install -r requirements.txt
+    - python test_app.py
 
 deploy_to_aws:
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   only:
     - master
   stage: deploy
   script:
+    -
     - chmod +x deploy/disableHostKeyChecking.sh
     - chmod +x deploy/updateServer.sh
     - chmod +x deploy/deploy.sh
