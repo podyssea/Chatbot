@@ -55,10 +55,12 @@ class HandleInputComponent extends Component {
                 self.triggerNext();
                 // this is where no intent was matched i.e. the agent has not been been taught this
             } else if (status === 600){
+                window.ttsOn = true;
                 self.setState({loading: false, result: 'You\'ve enabled text-to-speech!', textToSpeech: true});
                 self.triggerNext();
 
             }else if (status === 700 ) {
+                window.ttsOn = false;
                 self.setState({loading: false, result: 'You\'ve disabled text-to-speech!'});
                 self.triggerNext();
 
@@ -90,17 +92,18 @@ class HandleInputComponent extends Component {
                 border: 'solid 1px rgba(255,255,255,1)',
                 borderRadius: 0,
                 padding: 0,
-                TexAlign: 'left',
-                fontFamily: 'Swiss 721 BT'
+                textAlign: 'left',
+                fontFamily: 'Swiss 721 BT',
+                fontWeight: '100'
               },
             }
           };
 
-        const {loading, result, textToSpeech} = this.state;
+        const {loading, result} = this.state;
 
         return (
             <div className="handleinputcomponent">
-                {loading ? <Loading/> : <Speech styles={style} textAsButton={true} displayText={result} voice="Google UK English Male" autostart={textToSpeech} text={result} /> }
+                {loading ? <Loading/> : <Speech styles={style} textAsButton={true} displayText={result} voice="Google UK English Male" autostart={window.ttsOn} text={result} /> }
                 {
                     !loading &&
                     <div
