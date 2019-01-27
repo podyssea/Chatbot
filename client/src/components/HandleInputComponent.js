@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/functions';
 import { Loading } from 'react-simple-chatbot';
+import Speech from '../../node_modules/react-speech/dist/react-speech';
+
 
 const config = {
     apiKey: "AIzaSyBxjacU5G1EF4UC82N_JJSbrXcTLh9OT6Q",
@@ -16,13 +18,15 @@ const config = {
 firebase.initializeApp(config);
 
 class HandleInputComponent extends Component {
+    
     constructor(props) {
         super(props);
 
         this.state = {
             loading: true,
             result: '',
-            trigger: false
+            trigger: false,
+            textToSpeech : false
         };
 
         this.triggerNext = this.triggerNext.bind(this);
@@ -37,10 +41,11 @@ class HandleInputComponent extends Component {
         message({
             query: query
         }).then((result) => {
+            console.log(this.state.textToSpeech);
             let status = result.data.status;
-            console.log(status);
+            // console.log(status);
             let response = result.data.resp;
-            console.log(response);
+            // console.log(response);
             if (status === 200) {
                 self.setState({loading: false, result: response});
                 self.triggerNext();
@@ -52,12 +57,13 @@ class HandleInputComponent extends Component {
                 self.triggerNext();
                 // this is where no intent was matched i.e. the agent has not been been taught this
             } else if (status === 600){
-                self.setState({loading: false, result: 'You\'ve enabled text-to-speech!'});
-                self.triggerNext('speech-toggle', 'speech-toggle');
+                self.setState({loading: false, result: 'You\'ve enabled text-to-speech!', textToSpeech: true});
+                self.triggerNext();
+                console.log(this.state.textToSpeech);
 
             }else if (status === 700 ) {
                 self.setState({loading: false, result: 'You\'ve disabled text-to-speech!'});
-                self.triggerNext('speech-toggle', 'speech-toggle');
+                self.triggerNext();
 
             }
         });
@@ -65,6 +71,7 @@ class HandleInputComponent extends Component {
     }
 
     triggerNext(value, trigger) {
+        this.setState({loading: true});
         this.setState({trigger: true}, () => {
             this.props.triggerNextStep(value ? {value, trigger} : {});
         });
@@ -72,11 +79,11 @@ class HandleInputComponent extends Component {
 
 
     render() {
-        const {loading, result} = this.state;
+        const {loading, result, textToSpeech} = this.state;
 
         return (
             <div className="handleinputcomponent">
-                {loading ? <Loading/> : result}
+                {loading ? <Loading/> : <Speech textAsButton={true} displayText={result} voice="Google UK English Female" autostart={textToSpeech} text={result} /> }
                 {
                     !loading &&
                     <div

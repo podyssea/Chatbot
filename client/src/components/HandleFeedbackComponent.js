@@ -6,6 +6,7 @@ import parse from 'html-react-parser';
 import StarRatingComponent from 'react-star-rating-component';
 
 
+
 class HandleFeedbackComponent extends Component {
     constructor(props) {
         super(props);
