@@ -17,7 +17,6 @@ deploy_to_aws:
     - master
   stage: deploy
   script:
-    -
     - chmod +x deploy/disableHostKeyChecking.sh
     - chmod +x deploy/updateServer.sh
     - chmod +x deploy/deploy.sh
