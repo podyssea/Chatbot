@@ -1,5 +1,6 @@
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - 'sudo apt install python3-pip'
 
 stages:
   - test
