@@ -1,12 +1,17 @@
-image: node:slim
-
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - npm install
 
 stages:
+  - test
   - deploy
-        
+
+test_python:
+  stage: deploy
+  script:
+    - cd server
+    - python3 test_app.py
+
 deploy_to_aws:
   only:
     - master
