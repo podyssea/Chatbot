@@ -21,7 +21,7 @@ class Database:
         # connects to database. returns true if connected, false if not, and a text describing what happened
         try:
             self.connection = mysql.connector.connect(host=self.host, database=self.database, user=self.username,
-                                                      password=self.password, use_pure=True, buffered=True)
+                                                      password=self.password, use_pure=True)
             if self.connection.is_connected():
                 self.open_cursor()
                 return True, 'Connected'
