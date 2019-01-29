@@ -3,6 +3,7 @@ import ChatBot from 'react-simple-chatbot';
 import {ThemeProvider} from 'styled-components';
 import theme from './Theme';
 import steps from './Steps';
+import botAvatar from '../assets/icon.png';
 
 
 class App extends React.Component {
@@ -11,7 +12,7 @@ class App extends React.Component {
         return (
             <div>
                 <ThemeProvider theme={theme}>
-                    <ChatBot steps={steps} botAvatar='../images/icon.png' floating={true} headerTitle='Gilbert'
+                    <ChatBot steps={steps} botAvatar={botAvatar} floating={true} headerTitle='Gilbert'
                              speechSynthesis={{enable: false, lang: 'en'}} hideUserAvatar='true'/>
                 </ThemeProvider>
             </div>
