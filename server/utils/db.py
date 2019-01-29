@@ -30,7 +30,7 @@ class Database:
             return False, str(e)
 
     def open_cursor(self):
-        self.cursor = self.connection.cursor(prepared=True)
+        self.cursor = self.connection.cursor(prepared=True, buffered=True)
 
     def close_cursor(self):
         self.cursor.close()
