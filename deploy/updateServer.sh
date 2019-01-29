@@ -19,7 +19,7 @@ echo "after build"
 #source ~/projectenv/bin/activate
 cd ~/dissertation/server
 echo "after cd"
-kill $(ps aux | grep 'flask' | awk '{print $2}') 2>&1
+kill $(ps aux | grep 'flask' | awk '{print $2}') &> kill.log
 #echo "after killing 5000 listener"
 pip3 install -r requirements.txt
 echo "after pip3 install"
