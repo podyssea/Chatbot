@@ -36,20 +36,16 @@ exports.message = functions.https.onCall((data, context) => {
 
         const intent = result.intent;
         const action = result.action;
-        console.log(intent.displayName);
 
         const text = result.fulfillmentText;
         let status = 500; // 500 is an error
 
-        const smallTalkHello = ['smalltalk.greetings.goodevening', 'smalltalk.greetings.goodmorning', 'input.welcome', 'smalltalk.greetings.how_are_you', 'smalltalk.greetings.nice_to_meet_you', 'smalltalk.greetings.nice_to_talk_to_you', 'smalltalk.greetings.whatsup'];
+        // const smallTalkHello = ['smalltalk.greetings.goodevening', 'smalltalk.greetings.goodmorning', 'input.welcome', 'smalltalk.greetings.how_are_you', 'smalltalk.greetings.nice_to_meet_you', 'smalltalk.greetings.nice_to_talk_to_you', 'smalltalk.greetings.whatsup'];
         const smallTalkBye = ['smalltalk.greetings.goodnight', 'smalltalk.greetings.bye'];
 
         if (smallTalkBye.indexOf(action) > -1) {
             // we need this to be able to know when we are done talking
             status = 300;
-        } else if (smallTalkHello.indexOf(action) > -1) {
-            // this is when they initiate convo or say something else that's not an intent
-           status = 200;
         } else if (intent) {
             // here we actually match an intent
             if (text.length !== 0) {
