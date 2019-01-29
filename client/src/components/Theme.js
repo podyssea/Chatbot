@@ -2,12 +2,12 @@
 
 const theme = {
   background: '#f5f8fb',
-  fontFamily: 'Swiss 721 BT',
+  fontFamily: 'Arial',
   headerBgColor: '#0075B0',
   headerFontColor: '#fff',
   headerFontSize: '15px',
   botBubbleColor: '#fff',
-  botFontColor: '#4a4a4a',
+  botFontColor: '#000000',
   userBubbleColor: '#003865',
   userFontColor: '#fff',
 };
