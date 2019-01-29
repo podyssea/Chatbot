@@ -61,4 +61,179 @@ class Database:
         records = self.cursor.fetchall()
         return records
 
+    #-----------------------------------TITLE------------------------------------
+
+    def title_give_cost(self, title):
+        query = """SELECT Cost from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_classcode(self, title):
+        query = """SELECT Class_code from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_credits(self, title):
+        query = """SELECT Credits_attached from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_description(self, title):
+        query = """SELECT Description from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_duration(self, title):
+        query = """SELECT Duration from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_end(self, title):
+        query = """SELECT End_date from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_start(self, title):
+        query = """SELECT Start_date from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_subarea(self, title):
+        query = """SELECT Subject_area from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_tutor(self, title):
+        query = """SELECT Tutor from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def title_give_venue(self, title):
+        query = """SELECT Venue from Short_Courses WHERE Title = %s"""
+        self.cursor.execute(query, (title, ))
+        records = self.cursor.fetchone()
+        return records
+
+    #-------------------------------ID-------------------------------------
+
+    def id_give_cost(self, id):
+        query = """SELECT Cost from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+    
+    def id_give_credits(self, id):
+        query = """SELECT Credits_attached from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_description(self, id):
+        query = """SELECT Description from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_duration(self, id):
+        query = """SELECT Duration from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_end(self, id):
+        query = """SELECT End_date from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_start(self, id):
+        query = """SELECT Start_date from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_subarea(self, id):
+        query = """SELECT Subject_area from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_title(self, id):
+        query = """SELECT Title from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_tutor(self, id):
+        query = """SELECT Tutor from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def id_give_venue(self, id):
+        query = """SELECT Venue from Short_Courses WHERE Class_code = %s"""
+        self.cursor.execute(query, (id, ))
+        records = self.cursor.fetchone()
+        return records
+
+    #------------------------------OTHER---------------------------
+
+    def cost_give_title(self, cost):
+        query = """SELECT Title from Short_Courses WHERE Cost = %s"""
+        self.cursor.execute(query, (cost, ))
+        records = self.cursor.fetchall()
+        return records
+
+    def credits_give_title(self, credits):
+        query = """SELECT Title from Short_Courses WHERE Credits_attached = %s"""
+        self.cursor.execute(query, (credits, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def duration_give_title(self, duration):
+        query = """SELECT Title from Short_Courses WHERE Duration = %s"""
+        self.cursor.execute(query, (duration, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def end_give_title(self, end):
+        query = """SELECT Title from Short_Courses WHERE End_date = %s"""
+        self.cursor.execute(query, (end, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def start_give_title(self, start):
+        query = """SELECT Title from Short_Courses WHERE Start_date = %s"""
+        self.cursor.execute(query, (start, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def subarea_give_title(self, subarea):
+        query = """SELECT Title from Short_Courses WHERE Subject_area = %s"""
+        self.cursor.execute(query, (subarea, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def tutor_give_title(self, tutor):
+        query = """SELECT Title from Short_Courses WHERE Tutor = %s"""
+        self.cursor.execute(query, (tutor, ))
+        records = self.cursor.fetchone()
+        return records
+
+    def venue_give_title(self, venue):
+        query = """SELECT Title from Short_Courses WHERE Venue = %s"""
+        self.cursor.execute(query, (venue, ))
+        records = self.cursor.fetchone()
+        return records
+
+
 
