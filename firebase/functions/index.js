@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const dialogflow = require('dialogflow');
 
 admin.initializeApp({
     credential: admin.credential.applicationDefault()
@@ -12,7 +13,6 @@ admin.firestore().settings({
 const projectId = 'prototype-624d5';
 const sessionId = 'firebase-testing-session';
 const languageCode = 'en-US';
-const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
@@ -46,6 +46,8 @@ exports.message = functions.https.onCall((data, context) => {
         if (smallTalkBye.indexOf(action) > -1) {
             // we need this to be able to know when we are done talking
             status = 300;
+        } else if (smallTalkBye.indexOf(action) === -1 && action.startsWith('smalltalk')) {
+            status = 200;
         } else if (intent) {
             // here we actually match an intent
             if (text.length !== 0) {
