@@ -93,7 +93,7 @@ class HandleInputComponent extends Component {
                 borderRadius: 0,
                 padding: 0,
                 textAlign: 'left',
-                fontFamily: 'Swiss 721 BT',
+                fontFamily: 'Arial',
                 fontWeight: '100'
               },
             }
