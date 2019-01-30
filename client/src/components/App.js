@@ -13,7 +13,7 @@ class App extends React.Component {
             <div>
                 <ThemeProvider theme={theme}>
                     <ChatBot steps={steps} botAvatar={botAvatar} floating={true} headerTitle='Gilbert'
-                             speechSynthesis={{enable: false, lang: 'en'}} hideUserAvatar='true'/>
+                             hideUserAvatar='true'/>
                 </ThemeProvider>
             </div>
         );
