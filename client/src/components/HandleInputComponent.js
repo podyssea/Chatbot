@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/functions';
 import { Loading } from 'react-simple-chatbot';
-import Speech from '../../node_modules/react-speech/dist/react-speech';
 
 
 const config = {
@@ -65,6 +64,9 @@ class HandleInputComponent extends Component {
                 self.triggerNext();
 
             }
+            if (window.ttsOn) {
+            this.play(this.state.result);
+        }
         });
 
     }
@@ -75,35 +77,16 @@ class HandleInputComponent extends Component {
         });
     }
 
-
-
+    play(text){
+        responsiveVoice.speak(text, 'UK English Male');
+    }
 
     render() {
-
-        let style = {
-            play: {
-              button: {
-                width: '20',
-                height: '20',
-                cursor: 'pointer',
-                pointerEvents: 'none',
-                outline: 'none',
-                backgroundColor: '#fff',
-                border: 'solid 1px rgba(255,255,255,1)',
-                borderRadius: 0,
-                padding: 0,
-                textAlign: 'left',
-                fontFamily: 'Arial',
-                fontWeight: '100'
-              },
-            }
-          };
-
         const {loading, result} = this.state;
 
         return (
             <div className="handleinputcomponent">
-                {loading ? <Loading/> : <Speech styles={style} textAsButton={true} displayText={result} voice="Google UK English Male" autostart={window.ttsOn} text={result} /> }
+                {loading ? <Loading/> : result }
                 {
                     !loading &&
                     <div

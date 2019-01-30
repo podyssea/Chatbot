@@ -330,3 +330,5 @@ node_modules/
 
 # cmder should be local, not on the repo
 cmder_mini/*
+
+.idea/*
