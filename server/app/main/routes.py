@@ -1,14 +1,10 @@
-# import flask dependencies
-from flask import Flask, request, jsonify
-# from pprint import pprint
-from utils import intent_handler
-
-# initialize the flask app
-app = Flask(__name__)
+from flask import jsonify, request
+from app.main import bp
+from app.intents_handler import intent_handler
 
 
-# default route
-@app.route('/', methods=['POST', 'GET'])
+@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/webhook', methods=['GET', 'POST'])
 def index():
     # not a request from DialogFlow
     if request.method == 'GET':
@@ -22,9 +18,4 @@ def index():
         return_data = intent_handler.handle({'intent': user_intent, 'parameters': data['queryResult']['parameters']})
 
         return jsonify({'fulfillmentText': return_data})
-
-
-# run the app
-if __name__ == '__main__':
-    app.run()
 
