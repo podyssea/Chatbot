@@ -10,7 +10,7 @@
 ## Description
 The server within folder `server` receives the POST request from DialogFlow. It has one entry point
 `/` (alternatively listens for `/webhook` as well) and then passes the data from that request to a module
-aptly named `intent_handler` in the `intents_handler` folder.
+aptly named `intent_handler` in the `intents_handler` folder. The module `database` contains the code that queries the database.
 
 That file is the one responsible for communicating with the database using the `db` object (which is an SQLAlchemy object)
 and then returning the data to DialogFlow.
