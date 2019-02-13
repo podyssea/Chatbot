@@ -1,11 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-//import HandleInputComponent from 'HandleInputComponent'
+import { shallow } from 'enzyme';
 
-test('Correct feedback/error is sent depending on error code', () => {
+function setup() {
+  return 4;
+}
 
-    let x = 4
-
+describe('4 = 4', () => {
+  it('4 should equal 4 duh', () => {
+    const x = setup();
     expect(x).toBe(4);
-
   });
+});
