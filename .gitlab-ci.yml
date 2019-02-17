@@ -1,6 +1,6 @@
 stages:
   - test
-  - deploy
+#   - deploy
 
 test_python:
 #   image: python:3.6
