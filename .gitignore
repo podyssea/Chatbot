@@ -1,3 +1,5 @@
+.env
+.flaskenv
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -328,3 +330,7 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# cmder should be local, not on the repo
+cmder_mini/*
+
+.idea/*

@@ -11,7 +11,12 @@ const steps = [
     {
         id: '2',
         message: 'What can I help you with today?',
-        trigger: 'input',
+        trigger: '3',
+    },
+    {
+        id: '3',
+        message: 'You can enable text to speech by asking me!',
+        trigger: 'input'
     },
     {
         id: 'input',
