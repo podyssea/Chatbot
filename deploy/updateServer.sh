@@ -19,12 +19,14 @@ echo "after build"
 #source ~/projectenv/bin/activate
 cd ~/dissertation/server
 echo "after cd"
-kill $FLASK_PID &> kill.log
+
+kill `cat pid.txt`
+
 echo "after killing 5000 listener"
 pip3 install -r requirements.txt
 echo "after pip3 install"
 flask run &> output.log &
 echo "after running application"
-export FLASK_PID=$!
+echo $! > pid.txt
 
 exit
