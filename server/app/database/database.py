@@ -11,13 +11,15 @@ def all_course_titles():
 
 def all_subjects():
     records = ShortCourse.query.with_entities(
-        ShortCourse.Subject_area).distinct()  # returns as list of tuples with each tuple in the form (Subject Area, )
+        ShortCourse.Subject_area).distinct().all()
+    # returns as list of tuples with each tuple in the form (Subject Area, )
     return records
 
 
 def specific_subject_courses(subject):
     records = ShortCourse.query.filter_by(Subject_area=subject).all()
     return records
+
 
 # -----------------------------------TITLE------------------------------------
 
@@ -71,6 +73,7 @@ def title_give_venue(title):
     records = None  # todo: make this work when the venue in the database does change
     return records
 
+
 # -------------------------------ID-------------------------------------
 
 
@@ -122,6 +125,7 @@ def id_give_tutor(class_code):
 def id_give_venue(class_code):
     records = ShortCourse.query.with_entities(ShortCourse.Venue).filter_by(Class_code=class_code).first()
     return records
+
 
 # ------------------------------OTHER---------------------------
 
