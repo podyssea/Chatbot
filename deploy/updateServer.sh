@@ -19,11 +19,12 @@ echo "after build"
 #source ~/projectenv/bin/activate
 cd ~/dissertation/server
 echo "after cd"
-sudo fuser -k 5000/tcp
+kill $FLASK_PID &> kill.log
 echo "after killing 5000 listener"
 pip3 install -r requirements.txt
 echo "after pip3 install"
 flask run &> output.log &
 echo "after running application"
+export FLASK_PID=$!
 
 exit
