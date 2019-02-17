@@ -17,58 +17,58 @@ def handle(data):
         return title_give_cost(data['parameters']['Course'][0])  # works
     elif data['intent'] == 'Title -> Credits':
         return title_give_credits(data['parameters']['Course'])  # works
-#     elif data['intent'] == 'Title -> Description':
-#         return title_give_description(data['parameters']['Course'][0])  # works
-#     elif data['intent'] == 'Title -> Duration':
-#         return title_give_duration(data['parameters']['Course'][0])  # works
-#     elif data['intent'] == 'Title -> End Date':
-#         return title_give_end(data['parameters']['Course'][0])  # works
-#     elif data['intent'] == 'Title -> Start Date':
-#         return title_give_start(data['parameters']['Course'][0])  # works
-#     elif data['intent'] == 'Title -> Subject Area':
-#         return title_give_subarea(data['parameters']['Course'])  # works
-#     elif data['intent'] == 'Title -> Tutor':
-#         return title_give_tutor(data['parameters']['Course'][0])  # works
-#     elif data['intent'] == 'Title -> Venue':
-#         return title_give_venue()  # works
-#     # -------------------------------------------------
-#     elif data['intent'] == 'ID -> Title':
-#         return id_give_title(data['parameters']['number'][0])
-#     elif data['intent'] == 'ID -> Cost':
-#         return id_give_cost(data['parameters']['number'])  # works
-#     elif data['intent'] == 'ID -> Credits':
-#         return id_give_credits(data['parameters']['number'][0])  # works
-#     elif data['intent'] == 'ID -> Description':
-#         return id_give_description(data['parameters']['number'][0])  # works
-#     elif data['intent'] == 'ID -> Duration':
-#         return id_give_duration(data['parameters']['number'][0])  # works
-#     elif data['intent'] == 'ID -> End Date':
-#         return id_give_end(data['parameters']['number'][0])  # works
-#     elif data['intent'] == 'ID -> Start Date':
-#         return id_give_start(data['parameters']['number'][0])  # works
-#     elif data['intent'] == 'ID -> Subject Area':
-#         return id_give_subarea(data['parameters']['number'][0])  # works
-#     elif data['intent'] == 'ID -> Tutor':
-#         return id_give_tutor(data['parameters']['number'][0])  # works
-#     elif data['intent'] == 'ID -> Venue':
-#         return id_give_venue()  # works
-#     # --------------------------------------------------
-#     elif data['intent'] == 'Cost -> Title':
-#         return cost_give_title(data['parameters']['unit-currency'][0]['amount'])  # work
-#     elif data['intent'] == 'Credits -> Title':
-#         return credits_give_title(data['parameters']['Credits'][0])  # works
-#     elif data['intent'] == 'Duration -> Title':
-#         return duration_give_title(data['parameters']['duration'][0]['amount'])  # works
-#     elif data['intent'] == 'End date -> Title':
-#         return end_give_title(data['parameters']['date'][0])  # NOT wokring
-#     elif data['intent'] == 'Start date -> Title':
-#         return start_give_title(data['parameters']['date'][0])  # NOT working
-#     elif data['intent'] == 'Subject area -> Title':
-#         return subarea_give_title(data['parameters']['Subject_area'])  # NOT working
-#     elif data['intent'] == 'Tutor -> Title':
-#         return tutor_give_title(data['parameters']['given-name'])  # NOT working
-#     elif data['intent'] == 'Venue -> Title':
-#         return venue_give_title()  # working
+    elif data['intent'] == 'Title -> Description':
+         return title_give_description(data['parameters']['Course'][0])  # works
+    elif data['intent'] == 'Title -> Duration':
+         return title_give_duration(data['parameters']['Course'][0])  # works
+    elif data['intent'] == 'Title -> End Date':
+         return title_give_end(data['parameters']['Course'][0])  # works
+    elif data['intent'] == 'Title -> Start Date':
+         return title_give_start(data['parameters']['Course'][0])  # works
+    elif data['intent'] == 'Title -> Subject Area':
+         return title_give_subarea(data['parameters']['Course'])  # works
+    elif data['intent'] == 'Title -> Tutor':
+         return title_give_tutor(data['parameters']['Course'][0])  # works
+    elif data['intent'] == 'Title -> Venue':
+         return title_give_venue()  # works
+     # -------------------------------------------------
+    elif data['intent'] == 'ID -> Title':
+         return id_give_title(data['parameters']['number'][0])
+    elif data['intent'] == 'ID -> Cost':
+         return id_give_cost(data['parameters']['number'])  # works
+    elif data['intent'] == 'ID -> Credits':
+         return id_give_credits(data['parameters']['number'][0])  # works
+    elif data['intent'] == 'ID -> Description':
+         return id_give_description(data['parameters']['number'][0])  # works
+    elif data['intent'] == 'ID -> Duration':
+         return id_give_duration(data['parameters']['number'][0])  # works
+    elif data['intent'] == 'ID -> End Date':
+         return id_give_end(data['parameters']['number'][0])  # works
+    elif data['intent'] == 'ID -> Start Date':
+         return id_give_start(data['parameters']['number'][0])  # works
+    elif data['intent'] == 'ID -> Subject Area':
+         return id_give_subarea(data['parameters']['number'][0])  # works
+    elif data['intent'] == 'ID -> Tutor':
+         return id_give_tutor(data['parameters']['number'][0])  # works
+    elif data['intent'] == 'ID -> Venue':
+         return id_give_venue()  # works
+    # --------------------------------------------------
+    elif data['intent'] == 'Cost -> Title':
+         return cost_give_title(data['parameters']['unit-currency'][0]['amount'])  # work
+    elif data['intent'] == 'Credits -> Title':
+         return credits_give_title(data['parameters']['Credits'][0])  # works
+    elif data['intent'] == 'Duration -> Title':
+         return duration_give_title(data['parameters']['duration'][0]['amount'])  # works
+    elif data['intent'] == 'End date -> Title':
+         return end_give_title(data['parameters']['date'][0])  # NOT wokring
+    elif data['intent'] == 'Start date -> Title':
+        return start_give_title(data['parameters']['date'][0])  # NOT working
+    elif data['intent'] == 'Subject area -> Title':
+         return subarea_give_title(data['parameters']['Subject_area'])  # NOT working
+    elif data['intent'] == 'Tutor -> Title':
+         return tutor_give_title(data['parameters']['given-name'])  # NOT working
+    elif data['intent'] == 'Venue -> Title':
+         return venue_give_title()  # working
 
 
 def all_course_titles():

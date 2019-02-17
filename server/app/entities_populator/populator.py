@@ -52,6 +52,63 @@ def populate_Subject_Area(data):
 def populate_Lecturer(data):
   return -1
 
+#-----------------------------------Credits------------------------------------------------------
+def populate_Credits(data):
+    column = -1
+    for col in range(len(data[0])):
+        if (data[0][col] == 'Credits' or data[0][col] == 'Credits_Attached' or data[0][col] == 'Credits Attached' or data[0][col] == 'Cost'):
+            column = col
+            break
+        if column == -1:
+            return -1
+
+        colData = [row[col] for row in data[1:]]
+        entries = obtain_data(colData)
+        return 0
+
+#----------------------------------Class code------------------------------------------------------
+def populate_Credits(data):
+    column = -1
+    for col in range(len(data[0])):
+        if (data[0][col] == 'Class code' or data[0][col] == 'Class id' or data[0][col] == 'Class_id' or data[0][col] == 'Class_code' or data[0][col] == 'ID'):
+            column = col
+            break
+        if column == -1:
+            return -1
+
+        colData = [row[col] for row in data[1:]]
+        entries = obtain_data(colData)
+        return 0
+
+#----------------------------------End/Start Date--------------------------------------------------
+def populate_Credits(data):
+    column = -1
+    for col in range(len(data[0])):
+        if (data[0][col] == 'End_date' or data[0][col] == 'End date' or data[0][col] == 'Finish' or data[0][col] == 'End'):
+            column = col
+            break
+        if column == -1:
+            return -1
+
+        colData = [row[col] for row in data[1:]]
+        entries = obtain_data(colData)
+        return 0
+
+#-----------------------------------------------------------------------------------------------------
+def populate_Credits(data):
+    column = -1
+    for col in range(len(data[0])):
+        if (data[0][col] == 'Start_date' or data[0][col] == 'Start date' or data[0][col] == 'Begin' or data[0][col] == 'Start'):
+            column = col
+            break
+        if column == -1:
+            return -1
+
+        colData = [row[col] for row in data[1:]]
+        entries = obtain_data(colData)
+        return 0
+
+
 
 #------------------------------Get the data ready for population (and call the populators) --------------
 # Process: Open the csv file (TEMPORARY SOLUTION - FIND A WAY TO USE THE DATABASE DIRECTLY)

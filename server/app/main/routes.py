@@ -7,15 +7,15 @@ from app.intents_handler import intent_handler
 @bp.route('/webhook', methods=['GET', 'POST'])
 def index():
     # not a request from DialogFlow
-    if request.method == 'GET':
+    if request.method == 'POST':
         return 'Hello World, from webhook!'
     else:
         # request from dialogflow
-        data = request.get_json()
+        #data = request.get_json()
 
-        user_intent = data['queryResult']['intent']['displayName']
+        #user_intent = data['queryResult']['intent']['displayName']
 
-        return_data = intent_handler.handle({'intent': user_intent, 'parameters': data['queryResult']['parameters']})
+        return_data = intent_handler.handle({'intent': 'Available Courses'})
 
         return jsonify({'fulfillmentText': return_data})
 
