@@ -25,6 +25,4 @@ describe('Chat window functionality', function () {
 
     });
 
-
-
 });
