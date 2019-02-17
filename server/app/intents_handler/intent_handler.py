@@ -146,7 +146,7 @@ def title_give_tutor(title):
 
 
 def title_give_venue(title=None):
-    # data = database.title_give_venue(title)
+    data = database.title_give_venue(title)
     resp = 'The venue for this course is yet to be announced'
     return resp
 
@@ -209,7 +209,7 @@ def id_give_tutor(class_code):
 
 
 def id_give_venue(class_code=None):
-    # data = database.id_give_cost(class_code)
+    data = database.id_give_cost(class_code)
     resp = 'The venue for this course is yet to be announced'
     return resp
 

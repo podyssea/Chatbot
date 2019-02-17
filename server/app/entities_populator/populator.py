@@ -1,15 +1,43 @@
 # This file is going to go through the data in the csv file and take out all of the titles
 import pprint	# Just used for looking at parts of the data array
 import csv 	# Needed for the splitting of csv data
+import json #to get requests
 
 global 
 # Process: Create a dictionary of the entries and the synonyms of the given entity
 # Input: data - a single column of the data (as in a table)
 # Output: dictionary of {entries: synonyms}
 def obtain_data(data):
-  entity = {}
+  entity = {"entities":[],
+            "languagecode":string}
+  useless = ["in", "the", "to", "of", "at", "on", "out","an", "a"]
+  sep = [":", "-", ".", ";", "(", "[", "{", ")", "]", "}"]
   for entry in data:
     synonyms = []
+    string = ""
+    for word in entry:
+        if word not in useless and word[-1] not in sep:
+            synonyms.append(word)
+            if string == "":
+                string = word
+            else: 
+                string += " " + word
+                synonyms.append(string)
+        elif word[-1] in sep:
+            synonyms.append(word[0:-2])
+            if string == "":
+                string = word
+            else:
+                string += " " + word
+                synonyms.append(string)
+        elif string != "" and word in useless:
+            string += " " + word
+
+    pprint.pprint(synonyms)
+    #at the end
+    entry_data = {'value': entry,
+             'synonyms': synonyms}
+    enitity["entities"].append(entry_data)
     
 
 # ----------------------------------------- Populate specific entities ----------------------------------
@@ -31,6 +59,13 @@ def populate_Course(data):
   colData = [row[col] for row in data[1:]]
   entries = obtain_data(colData)
 
+  #requests the dictionary that will go in the specified entity
+  url = https://dialogflow.googleapis.com/v2/{parent=projects/prototype-624d5/agent/entityTypes/Course}/entities:batchCreate
+
+  payload = entries
+
+  r = requests.post(url, json=payload)
+
   return 0
 
 
@@ -46,68 +81,18 @@ def populate_Subject_Area(data):
   # Obtain the data from just the needed column
   colData = [row[col] for row in data[1:]]
   entries = obtain_data(colData)
+
+  url = https://dialogflow.googleapis.com/v2/{parent=projects/prototype-624d5/agent/entityTypes/Subject_area}/entities:batchCreate
+
+  payload = entries
+
+  r = requests.post(url, json=payload)
+
   return 0
 
 # Not sure if synonyms will be needed here - maybe just lower case version? Because some lecturers may share a surname so we would need to ask for the full name anyway. Unless we change that.
 def populate_Lecturer(data):
   return -1
-
-#-----------------------------------Credits------------------------------------------------------
-def populate_Credits(data):
-    column = -1
-    for col in range(len(data[0])):
-        if (data[0][col] == 'Credits' or data[0][col] == 'Credits_Attached' or data[0][col] == 'Credits Attached' or data[0][col] == 'Cost'):
-            column = col
-            break
-        if column == -1:
-            return -1
-
-        colData = [row[col] for row in data[1:]]
-        entries = obtain_data(colData)
-        return 0
-
-#----------------------------------Class code------------------------------------------------------
-def populate_Credits(data):
-    column = -1
-    for col in range(len(data[0])):
-        if (data[0][col] == 'Class code' or data[0][col] == 'Class id' or data[0][col] == 'Class_id' or data[0][col] == 'Class_code' or data[0][col] == 'ID'):
-            column = col
-            break
-        if column == -1:
-            return -1
-
-        colData = [row[col] for row in data[1:]]
-        entries = obtain_data(colData)
-        return 0
-
-#----------------------------------End/Start Date--------------------------------------------------
-def populate_Credits(data):
-    column = -1
-    for col in range(len(data[0])):
-        if (data[0][col] == 'End_date' or data[0][col] == 'End date' or data[0][col] == 'Finish' or data[0][col] == 'End'):
-            column = col
-            break
-        if column == -1:
-            return -1
-
-        colData = [row[col] for row in data[1:]]
-        entries = obtain_data(colData)
-        return 0
-
-#-----------------------------------------------------------------------------------------------------
-def populate_Credits(data):
-    column = -1
-    for col in range(len(data[0])):
-        if (data[0][col] == 'Start_date' or data[0][col] == 'Start date' or data[0][col] == 'Begin' or data[0][col] == 'Start'):
-            column = col
-            break
-        if column == -1:
-            return -1
-
-        colData = [row[col] for row in data[1:]]
-        entries = obtain_data(colData)
-        return 0
-
 
 
 #------------------------------Get the data ready for population (and call the populators) --------------
