@@ -38,7 +38,7 @@ class HandleInputComponent extends Component {
 
         let message = firebase.functions().httpsCallable('message');
         message({
-            qusery: query
+            query: query
         }).then((result) => {
             let status = result.data.status;
             console.log(status);
