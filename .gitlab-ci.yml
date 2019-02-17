@@ -8,7 +8,7 @@ test_python:
   script:
     - cd server
     - pip3 install -r requirements.txt
-    # - python test_app.py
+    - pytest
 
 deploy_to_aws:
 #   image: ubuntu:latest
