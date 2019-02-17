@@ -14,8 +14,9 @@ def create_app(config_class=Config):
     server = Flask(__name__)
     server.config.from_object(config_class)
 
-    db.init_app(server)
-    migrate.init_app(server, db)
+    with server.app_context():
+        db.init_app(server)
+        migrate.init_app(server, db)
 
     from app.main import bp as main_bp
     server.register_blueprint(main_bp)
