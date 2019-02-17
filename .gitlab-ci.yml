@@ -4,7 +4,7 @@ stages:
 
 test_python:
 #   image: python:3.6
-  stage: deploy
+  stage: test
   script:
     - cd server
     - pip3 install -r requirements.txt
