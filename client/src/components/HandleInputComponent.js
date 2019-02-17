@@ -33,11 +33,12 @@ class HandleInputComponent extends Component {
     componentDidMount() {
         const self = this;
         const {steps} = this.props;
-        const query = steps.input.value; // this is the value that the user gave aka their query string
+        let query = steps.input.value; // this is the value that the user gave aka their query string
+        query = query.trim().replace(/ +/g, ' '); // remove whitespace from both sides and then remove any extra spaces in between words
 
         let message = firebase.functions().httpsCallable('message');
         message({
-            query: query
+            qusery: query
         }).then((result) => {
             let status = result.data.status;
             console.log(status);
@@ -67,6 +68,9 @@ class HandleInputComponent extends Component {
             if (window.ttsOn) {
             this.play(this.state.result);
         }
+        }).catch((err) => {
+            self.setState({loading: false, result: 'Sorry, I\'m currently not knowledgeable enough to answer that question, Please rephrase or try another question!'});
+            self.triggerNext();
         });
 
     }

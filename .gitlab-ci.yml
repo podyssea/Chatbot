@@ -3,15 +3,15 @@ stages:
   - deploy
 
 test_python:
-  image: python:3.6
+#   image: python:3.6
   stage: deploy
   script:
     - cd server
-    - pip install -r requirements.txt
-    - python test_app.py
+    - pip3 install -r requirements.txt
+    - pytest
 
 deploy_to_aws:
-  image: ubuntu:latest
+#   image: ubuntu:latest
   before_script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   only:

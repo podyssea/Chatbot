@@ -19,12 +19,10 @@ echo "after build"
 #source ~/projectenv/bin/activate
 cd ~/dissertation/server
 echo "after cd"
-#kill $(ps aux | grep 'flask' | awk '{print $2}') &> kill.log
-#echo "after killing 5000 listener"
+sudo fuser -k 5000/tcp
+echo "after killing 5000 listener"
 pip3 install -r requirements.txt
 echo "after pip3 install"
-export FLASK_APP=app.py
-export FLASK_ENV=production
 flask run &> output.log &
 echo "after running application"
 
