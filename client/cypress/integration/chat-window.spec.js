@@ -22,7 +22,6 @@ describe('Chat window functionality', function () {
         cy.get('.rsc-input').type('Hello, World!');
         cy.get('.rsc-submit-button').click();
         cy.get('.rsc-ts-user > .rsc-ts-bubble').contains('Hello, World!');
-
     });
 
 });
