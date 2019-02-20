@@ -3,7 +3,6 @@ import pprint	# Just used for looking at parts of the data array
 import csv 	# Needed for the splitting of csv data
 import json #to get requests
 
-global 
 # Process: Create a dictionary of the entries and the synonyms of the given entity
 # Input: data - a single column of the data (as in a table)
 # Output: dictionary of {entries: synonyms}
@@ -60,11 +59,6 @@ def populate_Course(data):
   entries = obtain_data(colData)
 
   #requests the dictionary that will go in the specified entity
-  url = https://dialogflow.googleapis.com/v2/{parent=projects/prototype-624d5/agent/entityTypes/Course}/entities:batchCreate
-
-  payload = entries
-
-  r = requests.post(url, json=payload)
 
   return 0
 
@@ -75,18 +69,12 @@ def populate_Subject_Area(data):
   for col in range(len(data[0])):
     if (data[0][col] == 'Subject Area' or data[0][col] == 'Subject area'):
       column = col
-      break
+      break 
   if column == -1:
     return -1
   # Obtain the data from just the needed column
   colData = [row[col] for row in data[1:]]
   entries = obtain_data(colData)
-
-  url = https://dialogflow.googleapis.com/v2/{parent=projects/prototype-624d5/agent/entityTypes/Subject_area}/entities:batchCreate
-
-  payload = entries
-
-  r = requests.post(url, json=payload)
 
   return 0
 
