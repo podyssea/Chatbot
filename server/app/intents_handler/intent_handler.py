@@ -78,13 +78,13 @@ def all_course_titles():
 def all_subjects():
     data = database.all_subjects()
     resp = 'All subjects that are available are as follows: '
-    return resp + ', '.join(row[0] for row in data)
+    return resp + ', '.join([row[0] for row in data])
 
 
 def specific_subject_courses(subject):
     data = database.specific_subject_courses(subject)
     resp = 'All courses that belong to {} are as follows: '.format(subject)
-    return resp + ', '.join(row.Title for row in data)
+    return resp + ', '.join([row.Title for row in data])
 
 
 # -----------------------TITLE-------------------------------------------------
