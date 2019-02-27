@@ -12,8 +12,5 @@ describe('Error handling messages for unrecognised queries is sound', function (
 
     });
 
-    it('Bot says hello when summoned', function () {
-
-    });
 
 });

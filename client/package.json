@@ -11,7 +11,8 @@
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack -p --env.env=prod",
     "build:bundleanalyzer": "yarn build -- --env.addons=bundleanalyzer",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "axios": "^0.18.0",
