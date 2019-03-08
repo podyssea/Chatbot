@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+
 import pymysql
+
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,7 +30,7 @@ SECRET_KEY = 'fV04f8NHNx8mHDGkE2eEPh-xwiiM9mthDHY8o-w2E6N-Xu-1Qg8aIf0GFxrpUc1-9_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'anguel.co.uk']
+ALLOWED_HOSTS = ['localhost', 'anguel.co.uk', '127.0.0.1']
 
 
 # Application definition
@@ -41,11 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,6 +57,20 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
+SENDGRID_API_KEY = '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'
+
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False  # to be able to test
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:5000',
+    'localhost:3000',
+    '127.0.0.1:3000',
+    '127.0.0.1:5000',
+    'anguel.co.uk'
+)
 
 ROOT_URLCONF = 'externalrelations.urls'
 

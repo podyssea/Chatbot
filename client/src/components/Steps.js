@@ -1,6 +1,7 @@
 import React from 'react';
 import HandleInput from './HandleInputComponent';
-import HandleFeedback from './HandleFeedbackComponent'
+import HandleFeedback from './HandleFeedbackComponent';
+import HandleEmailToClient from './HandleEmailToClientComponent';
 
 const steps = [
     {
@@ -16,6 +17,11 @@ const steps = [
     {
         id: '3',
         message: 'You can enable text to speech by asking me!',
+        trigger: '4'
+    },
+    {
+        id: '4',
+        message: 'And if your query cannot be answered, you can send a direct email to the school by asking!',
         trigger: 'input'
     },
     {
@@ -29,6 +35,17 @@ const steps = [
         trigger: 'input',
         asMessage: true,
         waitAction: true,
+    },
+    {
+        id: 'emailToClient',
+        component: (< HandleEmailToClient/>),
+        trigger: 'emailConfirm',
+        waitAction: true
+    },
+    {
+        id: 'emailConfirm',
+        trigger: 'end',
+        message: '{previousValue}',
     },
     {
         id: 'feedback',
