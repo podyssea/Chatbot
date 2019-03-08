@@ -53,10 +53,12 @@ exports.message = functions.https.onCall((data, context) => {
             if (text.length !== 0) {
                 status = 200;
             }
-            if (intent.displayName === "Text-To-Speech ON"){
+            if (intent.displayName === 'Text-To-Speech ON') {
                 status = 600;
-            } else if (intent.displayName === "Text-To-Speech OFF"){
+            } else if (intent.displayName === 'Text-To-Speech OFF') {
                 status = 700;
+            } else if (intent.displayName === 'Send email to client') {
+                status = 800;
             }
 
         }
@@ -66,4 +68,37 @@ exports.message = functions.https.onCall((data, context) => {
     });
 
 });
+
+// stupid mail function that doesn't work. thanks google for your examples that never work
+// exports.mail = functions.https.onCall((data, context) => {
+//     // these are declared in the GCP console for functions in the mail function
+//
+//     const password = process.env.gmailpassword;
+//     const email = process.env.gmailemail;
+//     console.log(email);
+//     console.log(password);
+//
+//     const mailTransport = nodemailer.createTransport({
+//         service: 'Gmail',
+//         auth: {
+//             user: email,
+//             pass: password
+//         }
+//     });
+//
+//     const mailOptions = {
+//         to: email
+//     };
+//
+//     mailOptions.subject = data.name + ' has a question.';
+//     mailOptions.text = data.query;
+//
+//     return mailTransport.sendMail(mailOptions, (err, info) => {
+//         if (err) {
+//             console.log(err);
+//             return {resp: 'Failed to send', status: 500};
+//         }
+//         return {resp: 'Sent', status: 200};
+//     })
+// });
 
