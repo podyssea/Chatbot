@@ -1,10 +1,5 @@
 {
-  "name": "react-starter-boilerplate-hmr",
-  "version": "1.0.0",
-  "description": "React starter boilerplate with Hot Module Replacement, React 16 and Webpack 4",
-  "main": "index.js",
-  "author": "Esau Silva",
-  "license": "MIT",
+  "name": "the-chatbot",
   "scripts": {
     "dev": "webpack-dev-server --env.env=dev",
     "dev:bundleanalyzer": "yarn dev -- --env.addons=bundleanalyzer",
@@ -58,23 +53,5 @@
     "styled-components": ">= 2.0.0 < 4",
     "react": "^16.x",
     "react-dom": "^16.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/esausilva/react-starter-boilerplate-hmr.git"
-  },
-  "bugs": {
-    "url": "https://github.com/esausilva/react-starter-boilerplate-hmr/issues"
-  },
-  "keywords": [
-    "react",
-    "react 16",
-    "boilerplate",
-    "semantic ui",
-    "semantic ui react",
-    "webpack 4",
-    "webpack",
-    "hot module replacement",
-    "hmr"
-  ]
+  }
 }
