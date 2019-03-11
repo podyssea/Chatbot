@@ -7,36 +7,38 @@ import json #to get requests
 # Input: data - a single column of the data (as in a table)
 # Output: dictionary of {entries: synonyms}
 def obtain_data(data):
-  entity = {"entities":[],
-            "languagecode":string}
   useless = ["in", "the", "to", "of", "at", "on", "out","an", "a"]
-  sep = [":", "-", ".", ";", "(", "[", "{", ")", "]", "}"]
-  for entry in data:
-    synonyms = []
-    string = ""
-    for word in entry:
-        if word not in useless and word[-1] not in sep:
-            synonyms.append(word)
-            if string == "":
-                string = word
-            else: 
-                string += " " + word
-                synonyms.append(string)
-        elif word[-1] in sep:
-            synonyms.append(word[0:-2])
-            if string == "":
-                string = word
-            else:
-                string += " " + word
-                synonyms.append(string)
-        elif string != "" and word in useless:
-            string += " " + word
+  sep = [",",":", "-", ".", ";", "(", "[", "{", ")", "]", "}"]
 
-    pprint.pprint(synonyms)
-    #at the end
-    entry_data = {'value': entry,
-             'synonyms': synonyms}
-    enitity["entities"].append(entry_data)
+  synonyms = {}
+  
+  for entry in data:
+      splitted = re.findall(r"[\w']+|[.,!?;]", data)
+
+      for word in splitted:
+          if (word in useless or word in sep):
+              splitted.remove(word)
+          elif len(word) == 1:
+              splitted.remove(word)
+
+      results = [' '.join(splitted[i:j]) for i, j in combinations(range(len(splitted) + 1), 2)]
+
+      list_of_lists = [[i] for i in results]
+
+      for entry in list_of_lists:
+          length_syn = len(entry[0].split())
+          if length_syn == 1:
+              list_of_lists.remove(entry)
+
+      print(list_of_lists)
+
+      flattened = [val for sublist in list_of_lists for val in sublist]
+      print(flattened)
+
+      synonyms[data] = flattened
+
+  return synonyms
+    
     
 
 # ----------------------------------------- Populate specific entities ----------------------------------
