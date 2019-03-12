@@ -91,7 +91,8 @@ def specific_subject_courses(subject):
 
 def find_title(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Lecturer':'Tutor','location':'Venue'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',
+'Credits_attached':'UNNECESSARY', 'Class_code':'UNNECESSARY','End_date':'UNNECESSARY', 'Start_date':'UNNECESSARY'}
     # figure out if number is ID or credits
     if len(parameters['number'])!=0 and parameters['number1']:
         if parameters['number'] > parameters['number1']:
@@ -122,6 +123,7 @@ def find_title(parameters):
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v is not None}
+    del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
             given_parameters[k] = v[0]
