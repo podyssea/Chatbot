@@ -1,0 +1,16 @@
+# How to set up the Django server
+
+The server has to be on the same server as the client.
+
+Make sure to 
+```bash
+$ pip install -r requirements.txt
+```
+
+when in the folder with that file. It is recommended to run the server in a virtual environment.
+
+Use Python 3.6 or above.
+
+As currently all sensitive information is hard-coded, there is no extra setup needed for environmental variables.
+
+Check the wiki for admin user details.
