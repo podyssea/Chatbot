@@ -44,6 +44,15 @@ class ShortCourse(models.Model):
         return records
 
     # -----------------------------------TITLE------------------------------------
+   
+
+    @classmethod
+    def find_with_filters(cls, value, filters):
+        return ShortCourse.object.filter(**filters).values(value).first()
+
+    @classmethod
+    def find_by_title(cls, title, parameters):
+        return ShortCourse.object.filter(Title=title).values_list(parameters)
 
     @classmethod
     def title_give_cost(cls, title):
@@ -105,7 +114,7 @@ class ShortCourse(models.Model):
 
     @classmethod
     def id_give_title(cls, class_code):
-        records = ShortCourse.objects.filter(Class_code=class_code).values('Title').first()
+        records = ShortCourse.objects.filter(Class_code=class_code).values('Title')
         return records
 
     @classmethod
@@ -152,41 +161,41 @@ class ShortCourse(models.Model):
 
     @classmethod
     def cost_give_title(cls, cost):
-        records = ShortCourse.objects.filter(Cost=cost).values('Title').first()
+        records = ShortCourse.objects.filter(Cost=cost).values('Title')
         return records
 
     @classmethod
     def credits_give_title(cls, credits_attached):
-        records = ShortCourse.objects.filter(Credits_attached=credits_attached).values('Title').first()
+        records = ShortCourse.objects.filter(Credits_attached=credits_attached).values('Title')
         return records
 
     @classmethod
     def duration_give_title(cls, duration):
-        records = ShortCourse.objects.filter(Duration=duration).values('Duration').first()
+        records = ShortCourse.objects.filter(Duration=duration).values('Duration')
         return records
 
     @classmethod
     def end_give_title(cls, end):
-        records = ShortCourse.objects.filter(End_date=end).values('Title').first()
+        records = ShortCourse.objects.filter(End_date=end).values('Title')
         return records
 
     @classmethod
     def start_give_title(cls, start):
-        records = ShortCourse.objects.filter(Start_date=start).values('Title').first()
+        records = ShortCourse.objects.filter(Start_date=start).values('Title')
         return records
 
     @classmethod
     def subarea_give_title(cls, subarea):
-        records = ShortCourse.objects.filter(Subject_area=subarea).values('Title').first()
+        records = ShortCourse.objects.filter(Subject_area=subarea).values('Title')
         return records
 
     @classmethod
     def tutor_give_title(cls, tutor):
-        records = ShortCourse.objects.filter(Tutor__startswith=tutor).values('Title').first()
+        records = ShortCourse.objects.filter(Tutor__startswith=tutor).values('Title')
         return records
 
     @classmethod
     def venue_give_title(cls, venue):
-        records = ShortCourse.objects.filter(Venue=venue).values('Title').first()
+        records = ShortCourse.objects.filter(Venue=venue).values('Title')
         print(records)
         return records
