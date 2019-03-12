@@ -2,11 +2,15 @@
 import pprint	# Just used for looking at parts of the data array
 import csv 	# Needed for the splitting of csv data
 import json #to get requests
+import re #regular expressions
+from itertools import combinations #combinations for synonyms
+import itertools #synonyms
 
 # Process: Create a dictionary of the entries and the synonyms of the given entity
 # Input: data - a single column of the data (as in a table)
-# Output: dictionary of {entries: synonyms}
+# Output: dictionary of {title: [synonyms]}
 def obtain_data(data):
+  
   useless = ["in", "the", "to", "of", "at", "on", "out","an", "a"]
   sep = [",",":", "-", ".", ";", "(", "[", "{", ")", "]", "}"]
 
@@ -30,10 +34,7 @@ def obtain_data(data):
           if length_syn == 1:
               list_of_lists.remove(entry)
 
-      print(list_of_lists)
-
       flattened = [val for sublist in list_of_lists for val in sublist]
-      print(flattened)
 
       synonyms[data] = flattened
 
