@@ -121,7 +121,19 @@ def find_title(parameters):
     else:
         dialog_to_db['date'] = 'Start_date'
  
-    given_parameters = {dialog_to_db[k]: v for k, v in metadata.items() if v is not None}
+    given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v is not None}
+    for k, v in given_parameters.items():
+        if isinstance(v, (list,)):
+            given_parameters[k] = v[0]
+        if k == 'Cost':
+            given_parameters[k] = v['amount']
+        if k == 'Duration':
+            if v['unit'] == 'day':
+                given_parameters[k] = v['amount']
+            elif v['unit'] == 'week':
+                given_parameters[k] = v['amount']*7
+            elif v['unit'] == 'month':
+                given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Title', given_parameters)
     resp = 'The title of a course matching that description is '
     return "{}{}".format(resp, title.get('Title'))
