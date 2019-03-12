@@ -1,4 +1,6 @@
 from .models import ShortCourse
+import re
+from similarity.levenshtein import Levenshtein as LS
 
 
 def handle(data):
@@ -11,24 +13,44 @@ def handle(data):
         # ----------------------------------------------------
     elif data['intent'] == 'Title -> Class Code':
         return title_give_classcode(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Class Code - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Cost':
         return title_give_cost(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Cost - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Credits':
         return title_give_credits(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Credits - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Description':
         return title_give_description(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Description - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Duration':
         return title_give_duration(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Duration - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> End Date':
         return title_give_end(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> End Date - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Start Date':
         return title_give_start(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Start Date - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Subject Area':
         return title_give_subarea(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Subject Area - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Tutor':
         return title_give_tutor(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Tutor - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
     elif data['intent'] == 'Title -> Venue':
         return title_give_venue(data['parameters']['Course'][0])
+    elif data['intent'] == 'Title -> Venue - Incorrect-Title':
+        return give_similar_titles(data['contextParameters'][0]["parameters"]["Course.original"])
         # -------------------------------------------------
     elif data['intent'] == 'ID -> Title':
         return id_give_title(data['parameters']['number'][0])
@@ -89,64 +111,77 @@ def specific_subject_courses(subject):
 
 # -----------------------TITLE-------------------------------------------------
 
+did_you_mean = ".\n Did you mean to search for: "
+if_not_instruction = "\n If not, Type NO"
 
 def title_give_cost(title):
     data = ShortCourse.title_give_cost(title)
     resp = 'The cost of this course is '
-    return "{}{}".format(resp, data.get('Cost'))
+    return "{}{}".format(resp, data.get('Cost')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_classcode(title):
     data = ShortCourse.title_give_classcode(title)
     resp = 'The class code of this course is '
-    return '{}{}'.format(resp, data.get('Class_code'))
+    return '{}{}'.format(resp, data.get('Class_code')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_credits(title):
     data = ShortCourse.title_give_credits(title)
     resp = 'The credits attached for this course is '
-    return '{}{}'.format(resp, data.get('Credits_attached'))
+    return '{}{}'.format(resp, data.get('Credits_attached')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_description(title):
     data = ShortCourse.title_give_description(title)
     resp = 'To explain this course better.. '
-    return '{}{}'.format(resp, data.get('Description'))
+    return '{}{}'.format(resp, data.get('Description')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_duration(title):
     data = ShortCourse.title_give_duration(title)
     resp = 'This course goes on for '
-    return '{}{} days'.format(resp, data.get('Duration'))
+    return '{}{} days'.format(resp, data.get('Duration')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_end(title):
     data = ShortCourse.title_give_end(title)
     resp = 'The end date of this course is '
-    return '{}{}'.format(resp, data.get('End_date'))
+    return '{}{}'.format(resp, data.get('End_date')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_start(title):
     data = ShortCourse.title_give_start(title)
     resp = 'This course starts on '
-    return '{}{}'.format(resp, data.get('Start_date'))
+    return '{}{}'.format(resp, data.get('Start_date')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_subarea(title):
     data = ShortCourse.title_give_subarea(title)
     resp = 'The subject area for this course is '
-    return '{}{}'.format(resp, data.get('Subject_area'))
+    return '{}{}'.format(resp, data.get('Subject_area')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_tutor(title):
     data = ShortCourse.title_give_tutor(title)
     resp = 'The tutor of this course is '
-    return '{}{}'.format(resp, data.get('Tutor'))
+    return '{}{}'.format(resp, data.get('Tutor')) + did_you_mean + title + if_not_instruction
 
 
 def title_give_venue(title):
     data = ShortCourse.title_give_venue(title)
-    return '{}'.format(data.get('Venue'))
+    return '{}'.format(data.get('Venue')) + did_you_mean + title + if_not_instruction
+
+def give_similar_titles(title):
+    data = ShortCourse.all_course_titles()
+    title = re.sub('\W+', '', title).lower()
+    strings = {}
+    n = 7
+    # Compare Levenshtein distances of current title and all course titles, display n most similar
+    for row in data:
+        normalized = re.sub('\W+', '', row.Title).lower()
+        strings[row.Title] = LS().distance(title, normalized)
+    return "The following Titles are similar to your input: " + ", ".join((sorted(strings, key = strings.get)[0:n]))
 
 
 # -----------------------ID--------------------------------------

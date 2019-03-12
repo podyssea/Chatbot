@@ -47,7 +47,7 @@ def webhook(request):
             })
 
         parameters = deep_get(data, 'queryResult.parameters')
-        return_data = handle({'intent': user_intent, 'parameters': parameters})
+        return_data = handle({'intent': user_intent, 'parameters': parameters,  'contextParameters': data['queryResult'].get("outputContexts")})
 
         return JsonResponse({
             'fulfillmentText': return_data
