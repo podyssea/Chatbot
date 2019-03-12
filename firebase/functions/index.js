@@ -53,10 +53,12 @@ exports.message = functions.https.onCall((data, context) => {
             if (text.length !== 0) {
                 status = 200;
             }
-            if (intent.displayName === "Text-To-Speech ON"){
+            if (intent.displayName === 'Text-To-Speech ON') {
                 status = 600;
-            } else if (intent.displayName === "Text-To-Speech OFF"){
+            } else if (intent.displayName === 'Text-To-Speech OFF') {
                 status = 700;
+            } else if (intent.displayName === 'Send email to client') {
+                status = 800;
             }
 
         }
@@ -66,4 +68,3 @@ exports.message = functions.https.onCall((data, context) => {
     });
 
 });
-
