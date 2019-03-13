@@ -96,8 +96,8 @@ def find_title(parameters):
     # figure out if number is ID or credits
     if isinstance(parameters['number'], (list,)):
         parameters['number'] = parameters['number'][0]
-    if parameters['number'] and parameters['number1']:
-        if parameters['number'] > parameters['number1']:
+    if parameters['number'] and parameters['number1']: 
+        if int(parameters['number']) > int(parameters['number1']):
             dialog_to_db['number'] = 'Class_code'
             dialog_to_db['number1'] = 'Credits_attached'
     elif parameters['Credits']:
@@ -108,8 +108,8 @@ def find_title(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = [parameters['date'][5:6], parameters['date'][8:9]]
-        date1 = [parameters['date1'][5:6], parameters['date1'][8:9]]
+        date = [int(parameters['date'][5:6]), int(parameters['date'][8:9])]
+        date1 = [int(parameters['date1'][5:6]), int(parameters['date1'][8:9])]
         if date[0] > date1[0] or (date[0]==date1[0] and date[1] > date1[1]):
             dialog_to_db['date'] = 'End_date'
             dialog_to_db['date1'] = 'Start_date'
@@ -126,7 +126,7 @@ def find_title(parameters):
     else:
         dialog_to_db['date'] = 'Start_date'
  
-    given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v is not None and v != []}
+    given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v == "" and v != [] and ".original" not in k}
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -137,9 +137,9 @@ def find_title(parameters):
             if v['unit'] == 'day':
                 given_parameters[k] = v['amount']
             elif v['unit'] == 'week':
-                given_parameters[k] = v['amount']*7
+                given_parameters[k] = str(int(v['amount'])*7)
             elif v['unit'] == 'month':
-                given_parameters[k] = v['amount']*30
+                given_parameters[k] = str(int(v['amount'])*30)
     title = ShortCourse.find_with_filters('Title', given_parameters)
     resp = 'The title of a course matching that description is '
     return "{}{}".format(resp, title.get('Title'))
