@@ -97,7 +97,7 @@ def find_title(parameters):
     if isinstance(parameters['number'], (list,)):
         parameters['number'] = parameters['number'][0]
     if parameters['number'] and parameters['number1']: 
-        if int(parameters['number']) > int(parameters['number1']):
+        if parameters['number'] > parameters['number1']:
             dialog_to_db['number'] = 'Class_code'
             dialog_to_db['number1'] = 'Credits_attached'
     elif parameters['Credits']:
@@ -137,9 +137,9 @@ def find_title(parameters):
             if v['unit'] == 'day':
                 given_parameters[k] = v['amount']
             elif v['unit'] == 'week':
-                given_parameters[k] = str(int(v['amount'])*7)
+                given_parameters[k] = v['amount']*7
             elif v['unit'] == 'month':
-                given_parameters[k] = str(int(v['amount'])*30)
+                given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Title', given_parameters)
     resp = 'The title of a course matching that description is '
     return "{}{}".format(resp, title.get('Title'))
