@@ -157,7 +157,7 @@ def find_id(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Class_code', given_parameters)
-    resp = 'The title of a course matching that description is '
+    resp = 'The id of a course matching that description is '
     return "{}{}".format(resp, title.get('Class_code'))
 
 # ------------           ----------               -----------------            ----------        
@@ -217,8 +217,9 @@ def find_cost(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Cost', given_parameters)
-    resp = 'The title of a course matching that description is '
-    return "{}{}".format(resp, title.get('Cost'))
+    resp = 'This course costs '
+    pounds = ' pounds'
+    return "{}{}{}".format(resp, title.get('Cost'), pounds)
 
 # ------------           ----------               -----------------            ----------        
 
@@ -266,7 +267,7 @@ def find_credits(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Credits_attached', given_parameters)
-    resp = 'The title of a course matching that description is '
+    resp = 'The number of credits given by that course is '
     return "{}{}".format(resp, title.get('Credits_attached'))
 
 # ------------           ----------               -----------------            ----------        
@@ -326,7 +327,7 @@ def find_description(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Description', given_parameters)
-    resp = 'The title of a course matching that description is '
+    resp = 'The description of a course matching those parameters is '
     return "{}{}".format(resp, title.get('Description'))
 
 # ------------           ----------               -----------------            ----------        
@@ -379,7 +380,7 @@ def find_duration(parameters):
         if isinstance(v, (list,)):
             given_parameters[k] = v[0]
     title = ShortCourse.find_with_filters('Duration', given_parameters)
-    resp = 'The title of a course matching that description is '
+    resp = 'The duration of a course matching that description is '
     return "{}{}".format(resp, title.get('Duration'))
 
 # ------------           ----------               -----------------            ----------        
@@ -417,7 +418,8 @@ def find_end_date(parameters):
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('End_date', given_parameters)
     resp = 'The title of a course matching that description is '
-    return "{}{}".format(resp, title.get('End_date'))
+    time = ' at '
+    return "{}{}{}{}".format(resp, title.get('End_date'), time, title.get('End_time'))
 
 # ------------           ----------               -----------------            ----------        
 
@@ -454,7 +456,8 @@ def find_start_date(parameters):
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Start_date', given_parameters)
     resp = 'The title of a course matching that description is '
-    return "{}{}".format(resp, title.get('Start_date'))
+    time = ' at '
+    return "{}{}{}{}".format(resp, title.get('Start_date'), time, title.get('End_time'))
 
 # ------------           ----------               -----------------            ----------        
 
@@ -513,7 +516,7 @@ def find_lecturer(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Tutor', given_parameters)
-    resp = 'The title of a course matching that description is '
+    resp = 'The lecturer of a course matching that description is '
     return "{}{}".format(resp, title.get('Tutor'))
 
 
@@ -574,7 +577,7 @@ def find_subject_area(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Subject_area', given_parameters)
-    resp = 'The title of a course matching that description is '
+    resp = 'The subject area of a course matching that description is '
     return "{}{}".format(resp, title.get('Subject_area'))
 
 # ------------           ----------               -----------------            ----------        
@@ -634,7 +637,7 @@ def find_venue(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Venue', given_parameters)
-    resp = 'The title of a course matching that description is '
+    resp = 'The venue for a course matching that description is '
     return "{}{}".format(resp, title.get('Venue'))
 
 
