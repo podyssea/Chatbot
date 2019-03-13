@@ -94,7 +94,9 @@ def find_title(parameters):
     dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',
 'Credits_attached':'UNNECESSARY', 'Class_code':'UNNECESSARY','End_date':'UNNECESSARY', 'Start_date':'UNNECESSARY'}
     # figure out if number is ID or credits
-    if len(parameters['number'])!=0 and parameters['number1']:
+    if isinstance(parameters['number'], (list,)):
+        parameters['number'] = parameters['number'][0]
+    if parameters['number'] and parameters['number1']:
         if parameters['number'] > parameters['number1']:
             dialog_to_db['number'] = 'Class_code'
             dialog_to_db['number1'] = 'Credits_attached'
@@ -103,8 +105,10 @@ def find_title(parameters):
     elif parameters['Class_code']:
         dialog_to_db['number'] = 'Class_code'
     # figure out which date is start and/or end
-    if len(parameters['date'])!=0 and parameters['date1']:
-        date = [parameters['date'][0][5:6], parameters['date'][0][8:9]]
+    if isinstance(parameters['date'], (list,)):
+        parameters['date'] = parameters['date'][0]
+    if parameters['date'] and parameters['date1']:
+        date = [parameters['date'][5:6], parameters['date'][8:9]]
         date1 = [parameters['date1'][5:6], parameters['date1'][8:9]]
         if date[0] > date1[0] or (date[0]==date1[0] and date[1] > date1[1]):
             dialog_to_db['date'] = 'End_date'
@@ -122,7 +126,7 @@ def find_title(parameters):
     else:
         dialog_to_db['date'] = 'Start_date'
  
-    given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v is not None}
+    given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v is not None and v != []}
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
