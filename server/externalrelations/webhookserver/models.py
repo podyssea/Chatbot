@@ -35,6 +35,7 @@ class ShortCourse(models.Model):
 
     @classmethod
     def all_subjects(cls):
+
         records = ShortCourse.objects.values('Subject_area').distinct()
         return records
 
@@ -48,11 +49,12 @@ class ShortCourse(models.Model):
 
     @classmethod
     def find_with_filters(cls, value, filters):
-        return ShortCourse.object.filter(**filters).values(value).first()
+        print(filters)
+        return ShortCourse.objects.filter(**filters).values(value).first()
 
     @classmethod
     def find_by_title(cls, title, parameters):
-        return ShortCourse.object.filter(Title=title).values_list(parameters)
+        return ShortCourse.objects.filter(Title=title).values_list(parameters)
 
     @classmethod
     def title_give_cost(cls, title):

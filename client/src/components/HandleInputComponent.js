@@ -7,12 +7,18 @@ import {Loading} from 'react-simple-chatbot';
 
 
 const config = {
-    apiKey: "AIzaSyBxjacU5G1EF4UC82N_JJSbrXcTLh9OT6Q",
-    authDomain: "prototype-624d5.firebaseapp.com",
-    databaseURL: "https://prototype-624d5.firebaseio.com",
-    projectId: "prototype-624d5",
-    storageBucket: "prototype-624d5.appspot.com",
-    messagingSenderId: "156087064273"
+    // apiKey: "AIzaSyBxjacU5G1EF4UC82N_JJSbrXcTLh9OT6Q",
+    // authDomain: "prototype-624d5.firebaseapp.com",
+    // databaseURL: "https://prototype-624d5.firebaseio.com",
+    // projectId: "prototype-624d5",
+    // storageBucket: "prototype-624d5.appspot.com",
+    // messagingSenderId: "156087064273"
+    apiKey: "AIzaSyC3BzP11sojespxpUlIkmodmt6zTsl0Ouw",
+    authDomain: "version2-46721.firebaseapp.com",
+    databaseURL: "https://version2-46721.firebaseio.com",
+    projectId: "version2-46721",
+    storageBucket: "version2-46721.appspot.com",
+    messagingSenderId: "861385964505"
 };
 firebase.initializeApp(config);
 

@@ -1,4 +1,5 @@
 from .models import ShortCourse
+import datetime
 
 
 def handle(data):
@@ -95,10 +96,13 @@ def find_title(parameters):
     # figure out if number is ID or credits
     if isinstance(parameters['number'], (list,)):
         parameters['number'] = parameters['number'][0]
-    if parameters['number'] and parameters['number1']: 
+    if parameters['Credits'] and parameters['Class_code']:
         if parameters['number'] > parameters['number1']:
             dialog_to_db['number'] = 'Class_code'
             dialog_to_db['number1'] = 'Credits_attached'
+        else:
+            dialog_to_db['number'] = 'Credits_attached'
+            dialog_to_db['number1'] = 'Class_code'
     elif parameters['Credits']:
         dialog_to_db['number'] = 'Credits_attached'
     elif parameters['Class_code']:
@@ -107,12 +111,14 @@ def find_title(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = [int(parameters['date'][5:6]), int(parameters['date'][8:9])]
-        date1 = [int(parameters['date1'][5:6]), int(parameters['date1'][8:9])]
-        if date[0] > date1[0] or (date[0]==date1[0] and date[1] > date1[1]):
+        date = datetime.datetime.fromisoformat(parameters['date'])
+        parameters['date'] = date
+        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        parameters['date1'] = date1
+        if date > date1:
             dialog_to_db['date'] = 'End_date'
             dialog_to_db['date1'] = 'Start_date'
-        elif date[0] < date1[0] or (date[0]==date1[0] and date[1] < date1[1]):
+        elif date < date1:
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
         else:
@@ -125,7 +131,8 @@ def find_title(parameters):
     else:
         dialog_to_db['date'] = 'Start_date'
  
-    given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v == "" and v != [] and ".original" not in k}
+    given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
+    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
