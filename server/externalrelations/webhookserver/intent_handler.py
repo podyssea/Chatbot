@@ -91,8 +91,7 @@ def specific_subject_courses(subject):
 
 def find_title(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',
-'Credits_attached':'UNNECESSARY', 'Class_code':'UNNECESSARY','End_date':'UNNECESSARY', 'Start_date':'UNNECESSARY'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'UNNECESSARY', 'date1':'UNNECESSARY' }
     # figure out if number is ID or credits
     if isinstance(parameters['number'], (list,)):
         parameters['number'] = parameters['number'][0]
