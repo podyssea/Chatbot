@@ -1,4 +1,5 @@
 from .models import ShortCourse
+from dateutil.relativedelta import *
 import datetime
 
 
@@ -72,9 +73,11 @@ def find_title(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -86,14 +89,23 @@ def find_title(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
+    print(given_parameters['Start_date'])
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -121,9 +133,11 @@ def find_id(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -135,10 +149,19 @@ def find_id(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
@@ -183,9 +206,11 @@ def find_cost(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -197,10 +222,19 @@ def find_cost(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
@@ -231,9 +265,11 @@ def find_credits(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -245,10 +281,19 @@ def find_credits(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
@@ -293,9 +338,11 @@ def find_description(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -307,10 +354,19 @@ def find_description(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
@@ -353,9 +409,11 @@ def find_duration(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -367,10 +425,19 @@ def find_duration(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
@@ -389,6 +456,10 @@ def find_end_date(parameters):
     # turn the dialogflow parameter names into database column names
     dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'Start_date', 'desription':'Description'}
     # figure out if number is ID or credits
+    if parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
     if isinstance(parameters['number'], (list,)):
         parameters['number'] = parameters['number'][0]
     if parameters['Credits'] and parameters['Class_code']:
@@ -427,6 +498,10 @@ def find_start_date(parameters):
     # turn the dialogflow parameter names into database column names
     dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'End_date', 'desription':'Description'}
     # figure out if number is ID or credits
+    if parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
     if isinstance(parameters['number'], (list,)):
         parameters['number'] = parameters['number'][0]
     if parameters['Credits'] and parameters['Class_code']:
@@ -482,9 +557,11 @@ def find_lecturer(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -496,10 +573,19 @@ def find_lecturer(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
@@ -543,9 +629,11 @@ def find_subject_area(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -557,10 +645,19 @@ def find_subject_area(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
@@ -603,9 +700,11 @@ def find_venue(parameters):
     if isinstance(parameters['date'], (list,)):
         parameters['date'] = parameters['date'][0]
     if parameters['date'] and parameters['date1']:
-        date = datetime.datetime.fromisoformat(parameters['date'])
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
         parameters['date'] = date
-        date1 = datetime.datetime.fromisoformat(parameters['date1'])
+        date1 = datetime.datetime.strptime(parameters['date1'][0:10], '%Y-%m-%d')
+        date1 = date1 + relativedelta(years=-1)
         parameters['date1'] = date1
         if date > date1:
             dialog_to_db['date'] = 'End_date'
@@ -617,10 +716,19 @@ def find_venue(parameters):
             dialog_to_db['date1'] = 'End_date'
             dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_start']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
     elif parameters['Date_end']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'End_date'
-    else:
+    elif parameters['date']:
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = date + relativedelta(years=-1)
+        parameters['date'] = date
         dialog_to_db['date'] = 'Start_date'
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}

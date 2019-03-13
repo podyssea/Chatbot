@@ -5,8 +5,6 @@ class ShortCourse(models.Model):
     Subject_area = models.TextField(max_length=150)
     Title = models.TextField(max_length=150)
     Class_code = models.IntegerField()
-    Start_date = models.TextField(max_length=50)
-    End_date = models.TextField(max_length=50)
     Start_time = models.DecimalField(max_digits=10, decimal_places=2)
     End_time = models.DecimalField(max_digits=10, decimal_places=2)
     Cost = models.DecimalField(max_digits=10, decimal_places=2)
@@ -18,6 +16,8 @@ class ShortCourse(models.Model):
     Credits_attached = models.IntegerField()
     Language_Level_of_Study_links = models.TextField()
     pk_id = models.AutoField(primary_key=True)
+    Start_date = models.DateField()
+    End_date = models.DateField()
 
     class Meta:
         db_table = 'Short_Courses'
