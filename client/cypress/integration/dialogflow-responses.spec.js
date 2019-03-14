@@ -2,12 +2,12 @@ import firebase from 'firebase/app';
 import 'firebase/functions';
 
 const config = {
-    apiKey: "AIzaSyBxjacU5G1EF4UC82N_JJSbrXcTLh9OT6Q",
-    authDomain: "prototype-624d5.firebaseapp.com",
-    databaseURL: "https://prototype-624d5.firebaseio.com",
-    projectId: "prototype-624d5",
-    storageBucket: "prototype-624d5.appspot.com",
-    messagingSenderId: "156087064273"
+    apiKey: "AIzaSyC3BzP11sojespxpUlIkmodmt6zTsl0Ouw",
+    authDomain: "version2-46721.firebaseapp.com",
+    databaseURL: "https://version2-46721.firebaseio.com",
+    projectId: "version2-46721",
+    storageBucket: "version2-46721.appspot.com",
+    messagingSenderId: "861385964505"
 };
 firebase.initializeApp(config);
 
@@ -27,277 +27,277 @@ describe('Dialogflow detects the correct intent fromt the following queries:', f
     beforeEach(function () {
         let intent = "";
      });
-    it('Show me all available courses.', function () {
+    it('short courses list', function () {
         cy.wrap(null).then(() => {
-            return makeQuery('all available courses').then((response) => {
+            return makeQuery('short courses list').then((response) => {
                 expect(response.data.intent).to.equal('Available Courses');
             });
         });
     });
 
-    it('Are there any courses for 40 pounds?', function () {
+    it('Which course starts on the 17th of January and ends on the 21st of March? What is it\'s ID?', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('Are there any courses for 40 pounds?').then((response) => {
-                expect(response.data.intent).to.equal('Cost -> Title');
+            return makeQuery('Which course starts on the 17th of January and ends on the 21st of March? What is it\'s ID?').then((response) => {
+                expect(response.data.intent).to.equal('FindClassCode');
             });
         });
     });
 
-    it('Are there any courses with zero credits?', function () {
+    it('How much do you have to pay for Ancient Egypt and the Bible which starts on 17th of January', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('Are there any courses with zero credits?').then((response) => {
-                expect(response.data.intent).to.equal('Credits -> Title');
+            return makeQuery('How much do you have to pay for Ancient Egypt and the Bible which starts on 17th of January').then((response) => {
+                expect(response.data.intent).to.equal('FindCost');
             });
         });
     });
 
-    it('Are there any courses with duration of one day?', function () {
+    it('How many credits does class code 9248 provide?', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('Are there any courses with duration of one day?').then((response) => {
-                expect(response.data.intent).to.equal('Duration -> Title');
+            return makeQuery('How many credits does class code 9248 provide?').then((response) => {
+                expect(response.data.intent).to.equal('FindCredits');
             });
         });
     });
 
-    it('What are the courses finishing on the 24th November?', function () {
+    it('Description of Ancient Egypt and the Bible', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('What are the courses finishing on the 24th November?').then((response) => {
-                expect(response.data.intent).to.equal('End date -> Title');
+            return makeQuery('Description of Ancient Egypt and the Bible').then((response) => {
+                expect(response.data.intent).to.equal('FindDescription');
             });
         });
     });
 
 
-    it('How much do i have to pay for the course with id 2580?', function () {
+    it('What is the duration of class id 9248 ?', function () {
  
         cy.wrap(null).then(() => {
-            return makeQuery('How much do i have to pay for the course with id 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Cost');
+            return makeQuery('What is the duration of class id 9248 ?').then((response) => {
+                expect(response.data.intent).to.equal('FindDuration');
             });
         });
     });
 
 
-    it('How many credits does id 2580 give?', function () {
+    it('Can you give me the end date for the course Ancient Egypt and the Bible?', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('How many credits does id 2580 give?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Credits');
+            return makeQuery('Can you give me the end date for the course Ancient Egypt and the Bible?').then((response) => {
+                expect(response.data.intent).to.equal('FindEndDate');
             });
         });
     });
 
-    it('What is the description of class code 2580?', function () {
+    it('Who is the lecturer for the short course Ancient Egypt and the Bible', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('What is the description of class code 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Description');
-            });
-        });
-    });
-
-
-    it('What is the end date of course with ID 2580?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is the end date of course with ID 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> End Date');
+            return makeQuery('Who is the lecturer for the short course Ancient Egypt and the Bible').then((response) => {
+                expect(response.data.intent).to.equal('FindLecturer');
             });
         });
     });
 
 
-    it('What is the start date of course with ID 2580?', function () {
+    it('When does the course Ancient Egypt and the Bible start?', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('What is the start date of course with ID 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Start Date');
-            });
-        });
-    });
-
-    it('What is the subject area of course with ID 2580?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is the subject area of course with ID 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Subject Area');
+            return makeQuery('When does the course Ancient Egypt and the Bible start?').then((response) => {
+                expect(response.data.intent).to.equal('FindStartDate');
             });
         });
     });
 
 
-    it('What is the title of course with ID 2580?', function () {
+    it('What is the subject area of the course Ancient Egypt and the Bible?', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('What is the title of course with ID 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Title');
+            return makeQuery('What is the subject area of the course Ancient Egypt and the Bible?').then((response) => {
+                expect(response.data.intent).to.equal('FindSubjectArea');
             });
         });
     });
 
-    it('Who teaches course with ID 2580?', function () {
+    it('what is the course with id 9248, start date 17th of January, end date 21st of March, duration 64 days, offering 10 credits and costs 125 pounds', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('Who teaches course with ID 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Tutor');
+            return makeQuery('what is the course with id 9248, start date 17th of January, end date 21st of March, duration 64 days, offering 10 credits and costs 125 pounds').then((response) => {
+                expect(response.data.intent).to.equal('FindTitle');
             });
         });
     });
 
-    it('What is the venue of course with ID 2580?', function () {
+
+    it('Where is the course Ancient Egypt and the Bible taking place?', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('What is the venue of course with ID 2580?').then((response) => {
-                expect(response.data.intent).to.equal('ID -> Venue');
+            return makeQuery('Where is the course Ancient Egypt and the Bible taking place?').then((response) => {
+                expect(response.data.intent).to.equal('FindVenue');
             });
         });
     });
 
-    it('Which courses begin on the twenty fourth of november?', function () {
+    it('subject areas', function () {
 
         cy.wrap(null).then(() => {
-            return makeQuery('Which courses begin on the twenty fourth of november?').then((response) => {
-                expect(response.data.intent).to.equal('Start date -> Title');
-            });
-        });
-    });
-
-    it('Are there any classes about Archaeology Classical Studies and Egyptology?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('Are there any classes about Archaeology Classical Studies and Egyptology?').then((response) => {
-                expect(response.data.intent).to.equal('Subject area -> Title');
-            });
-        });
-    });
-
-    it('What subject areas are there?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What subject areas are there?').then((response) => {
+            return makeQuery('subject areas').then((response) => {
                 expect(response.data.intent).to.equal('Subject Areas');
             });
         });
     });
 
-
-    it('What is the id of Cleopatra: Queen of Egypt?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is the id of Cleopatra: Queen of Egypt?').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Class Code');
-            });
-        });
-    });
-
-
-    it('Give me the Cleopatra: Queen of Egypt cost', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('Give me the Cleopatra: Queen of Egypt cost').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Cost');
-            });
-        });
-    });
-
-
-
-    it('I\'d like to know how many credits does Cleopatra: Queen of Egypt gives', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('I\'d like to know how many credits does Cleopatra: Queen of Egypt gives').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Credits');
-            });
-        });
-    });
-
-
-    it('What is Cleopatra: Queen of Egypt\'s description?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is Cleopatra: Queen of Egypt\'s description?').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Description');
-            });
-        });
-    });
-
-    it('What is the length of Cleopatra: Queen of Egypt?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is the length of Cleopatra: Queen of Egypt?').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Duration');
-            });
-        });
-    });
-
-
-    it('What is the end date of Cleopatra: Queen of Egypt?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is the end date of Cleopatra: Queen of Egypt?').then((response) => {
-                expect(response.data.intent).to.equal('Title -> End Date');
-            });
-        });
-    });
-
-    it('What is the start date of Cleopatra: Queen of Egypt?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is the start date of Cleopatra: Queen of Egypt?').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Start Date');
-            });
-        });
-    });
-
-    it('Can you tell me the subject area of Cleopatra: Queen of Egypt?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('Can you tell me the subject area of Cleopatra: Queen of Egypt?').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Subject Area');
-            });
-        });
-    });
-
-    it('Who teaches Cleopatra: Queen of Egypt', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('Who teaches Cleopatra: Queen of Egypt').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Tutor');
-            });
-        });
-    });
-
-    it('What is the venue for Cleopatra: Queen of Egypt?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What is the venue for Cleopatra: Queen of Egypt?').then((response) => {
-                expect(response.data.intent).to.equal('Title -> Venue');
-            });
-        });
-    });
-
-    it('What are the courses taught by Jane Draycott?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What are the courses taught by Jane Draycott?').then((response) => {
-                expect(response.data.intent).to.equal('Tutor -> Title');
-            });
-        });
-    });
-
-
-    it('What are the courses in the main building?', function () {
-
-        cy.wrap(null).then(() => {
-            return makeQuery('What are the courses in the main building').then((response) => {
-                expect(response.data.intent).to.equal('Venue -> Title');
-            });
-        });
-    });
+    // it('What is the venue of course with ID 2580?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What is the venue of course with ID 2580?').then((response) => {
+    //             expect(response.data.intent).to.equal('ID -> Venue');
+    //         });
+    //     });
+    // });
+    //
+    // it('Which courses begin on the twenty fourth of november?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('Which courses begin on the twenty fourth of november?').then((response) => {
+    //             expect(response.data.intent).to.equal('Start date -> Title');
+    //         });
+    //     });
+    // });
+    //
+    // it('Are there any classes about Archaeology Classical Studies and Egyptology?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('Are there any classes about Archaeology Classical Studies and Egyptology?').then((response) => {
+    //             expect(response.data.intent).to.equal('Subject area -> Title');
+    //         });
+    //     });
+    // });
+    //
+    // it('What subject areas are there?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What subject areas are there?').then((response) => {
+    //             expect(response.data.intent).to.equal('Subject Areas');
+    //         });
+    //     });
+    // });
+    //
+    //
+    // it('What is the id of Cleopatra: Queen of Egypt?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What is the id of Cleopatra: Queen of Egypt?').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Class Code');
+    //         });
+    //     });
+    // });
+    //
+    //
+    // it('Give me the Cleopatra: Queen of Egypt cost', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('Give me the Cleopatra: Queen of Egypt cost').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Cost');
+    //         });
+    //     });
+    // });
+    //
+    //
+    //
+    // it('I\'d like to know how many credits does Cleopatra: Queen of Egypt gives', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('I\'d like to know how many credits does Cleopatra: Queen of Egypt gives').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Credits');
+    //         });
+    //     });
+    // });
+    //
+    //
+    // it('What is Cleopatra: Queen of Egypt\'s description?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What is Cleopatra: Queen of Egypt\'s description?').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Description');
+    //         });
+    //     });
+    // });
+    //
+    // it('What is the length of Cleopatra: Queen of Egypt?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What is the length of Cleopatra: Queen of Egypt?').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Duration');
+    //         });
+    //     });
+    // });
+    //
+    //
+    // it('What is the end date of Cleopatra: Queen of Egypt?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What is the end date of Cleopatra: Queen of Egypt?').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> End Date');
+    //         });
+    //     });
+    // });
+    //
+    // it('What is the start date of Cleopatra: Queen of Egypt?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What is the start date of Cleopatra: Queen of Egypt?').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Start Date');
+    //         });
+    //     });
+    // });
+    //
+    // it('Can you tell me the subject area of Cleopatra: Queen of Egypt?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('Can you tell me the subject area of Cleopatra: Queen of Egypt?').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Subject Area');
+    //         });
+    //     });
+    // });
+    //
+    // it('Who teaches Cleopatra: Queen of Egypt', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('Who teaches Cleopatra: Queen of Egypt').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Tutor');
+    //         });
+    //     });
+    // });
+    //
+    // it('What is the venue for Cleopatra: Queen of Egypt?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What is the venue for Cleopatra: Queen of Egypt?').then((response) => {
+    //             expect(response.data.intent).to.equal('Title -> Venue');
+    //         });
+    //     });
+    // });
+    //
+    // it('What are the courses taught by Jane Draycott?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What are the courses taught by Jane Draycott?').then((response) => {
+    //             expect(response.data.intent).to.equal('Tutor -> Title');
+    //         });
+    //     });
+    // });
+    //
+    //
+    // it('What are the courses in the main building?', function () {
+    //
+    //     cy.wrap(null).then(() => {
+    //         return makeQuery('What are the courses in the main building').then((response) => {
+    //             expect(response.data.intent).to.equal('Venue -> Title');
+    //         });
+    //     });
+    // });
 
 
 
