@@ -38,7 +38,7 @@ $ npm run build:bundleanalyzer
 
 ## Running Cypress Tests
 
-First navigate to the `clinet` directory
+First navigate to the `client` directory
 
 To install cypress run the following command
 ```
