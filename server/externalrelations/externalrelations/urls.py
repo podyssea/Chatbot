@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('webhook/', include('webhookserver.urls')),
+    path('', include('webhookserver.urls')),
     path('admin/', admin.site.urls),
 ]

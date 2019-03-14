@@ -36,3 +36,17 @@ Run on the production optimized build
 $ npm run build:bundleanalyzer
 ```
 
+## Running Cypress Tests
+
+First navigate to the `client` directory
+
+To install cypress run the following command
+```
+$ npm install cypress
+```
+To run the tests:
+
+```
+$ npm run cypress:open
+```
+

@@ -8,7 +8,7 @@ class AppGetTestCase(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.client = Client()
-        cls.response = cls.client.get('/webhook/')
+        cls.response = cls.client.get('/')
 
     def test_get_status_code(self):
         self.assertEqual(self.response.status_code, 200)
@@ -28,7 +28,7 @@ class AppEmptyPostTestCase(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.client = Client()
-        cls.response = cls.client.post('/webhook/', data=dumps({}), format='json', content_type='application/json')
+        cls.response = cls.client.post('/', data=dumps({}), format='json', content_type='application/json')
 
     def test_post_status_code(self):
         self.assertEqual(self.response.status_code, 200)
@@ -49,7 +49,7 @@ class AppSamplePostTestCase(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.client = Client()
-        cls.response = cls.client.post('/webhook/', dumps(dict({'queryResult': {'intent': {'displayName': 'Test'}}})),
+        cls.response = cls.client.post('/', dumps(dict({'queryResult': {'intent': {'displayName': 'Test'}}})),
                                        format='json', content_type='application/json')
 
     def test_post_status_code(self):
