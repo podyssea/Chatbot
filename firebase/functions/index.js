@@ -10,8 +10,8 @@ admin.firestore().settings({
     timestampsInSnapshots: true
 });
 
-const projectId = 'prototype-624d5';
-const sessionId = 'firebase-testing-session';
+const projectId = 'version2-46721';
+const sessionId = 'version-2-session';
 const languageCode = 'en-US';
 const sessionClient = new dialogflow.SessionsClient();
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
@@ -36,6 +36,7 @@ exports.message = functions.https.onCall((data, context) => {
 
         const intent = result.intent;
         const action = result.action;
+        const intentName = intent.displayName;
 
         const text = result.fulfillmentText;
         let status = 500; // 500 is an error
@@ -53,17 +54,17 @@ exports.message = functions.https.onCall((data, context) => {
             if (text.length !== 0) {
                 status = 200;
             }
-            if (intent.displayName === 'Text-To-Speech ON') {
+            if (intentName === 'Text-To-Speech ON') {
                 status = 600;
-            } else if (intent.displayName === 'Text-To-Speech OFF') {
+            } else if (intentName === 'Text-To-Speech OFF') {
                 status = 700;
-            } else if (intent.displayName === 'Send email to client') {
+            } else if (intentName === 'Send email to client') {
                 status = 800;
             }
 
         }
 
-        return {resp:text, status: status};
+        return {resp:text, status: status, intent: intentName};
 
     });
 
