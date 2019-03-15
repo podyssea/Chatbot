@@ -1,6 +1,8 @@
-# External Relations Chat-Bot
+# External Relations Chatbot
 
 Developed to deal with redundant queries about University of Glasgow short courses.
+
+The chatbot can be accessed live and running [here.](https://anguel.co.uk/)
 
 ## Getting Started
 
@@ -64,7 +66,8 @@ $ python3 manage.py runserver 5000
 
 ### Snapshot and Dialogflow intents tests
 
-These tests have been developed using the Cypress testing framework
+These tests have been developed using the Cypress testing framework.
+
 First navigate to the `client` directory
 
 To install cypress run the following command
