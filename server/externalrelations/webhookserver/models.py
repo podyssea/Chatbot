@@ -21,7 +21,7 @@ class ShortCourse(models.Model):
 
     class Meta:
         db_table = 'Short_Courses'
-        managed = False  # to not override the tables
+        #managed = False  # to not override the tables
         verbose_name = 'Short Course'
         verbose_name_plural = 'Short Courses'
 
@@ -45,6 +45,4 @@ class ShortCourse(models.Model):
 
     @classmethod
     def find_with_filters(cls, value, filters):
-        print(filters)
         return ShortCourse.objects.filter(**filters).values(value).first()
-

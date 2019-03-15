@@ -131,7 +131,6 @@ def find_title(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters['Start_date'])
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -160,7 +159,6 @@ def find_id(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -191,7 +189,6 @@ def find_cost(parameters):
  
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -218,7 +215,6 @@ def find_credits(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -248,7 +244,6 @@ def find_description(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -276,7 +271,6 @@ def find_duration(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -302,7 +296,6 @@ def find_end_date(parameters):
     dialog_to_db['number'], dialog_to_db['number1'] = class_code_or_credits(parameters['number'], parameters['number1'], parameters['Credits'], parameters['Class_code'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -336,7 +329,6 @@ def find_start_date(parameters):
     dialog_to_db['number'], dialog_to_db['number1'] = class_code_or_credits(parameters['number'], parameters['number1'], parameters['Credits'], parameters['Class_code'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -366,7 +358,6 @@ def find_lecturer(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -395,7 +386,6 @@ def find_subject_area(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -423,7 +413,6 @@ def find_venue(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -440,6 +429,5 @@ def find_venue(parameters):
         return 'The venue for this course has not been confirmed yet. Room number will be listed at reception on the day/evening of the class'
     resp = 'The venue for a course matching that description is '
     return "{}{}".format(resp, title.get('Venue'))
-
 
 
