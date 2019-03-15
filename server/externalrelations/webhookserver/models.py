@@ -44,26 +44,5 @@ class ShortCourse(models.Model):
         return records
 
     @classmethod
-    def find_with_id(cls, value, filters):
-        print(filters)
-        return ShortCourse.objects.filter(**filters).values(value).first()
-
-    @classmethod
-    def find_with_starttime(cls, value, filters):
-        print(filters)
-        return ShortCourse.objects.filter(**filters).values(value).first()
-
-    @classmethod
-    def find_with_endtime(cls, value, filters):
-        print(filters)
-        return ShortCourse.objects.filter(**filters).values(value).first()
-
-    @classmethod
-    def find_with_cost(cls, value, filters):
-        print(filters)
-        return ShortCourse.objects.filter(**filters).values(value).first()
-
-    @classmethod
-    def find_with_duration(cls, value, filters):
-        print(filters)
+    def find_with_filters(cls, value, filters):
         return ShortCourse.objects.filter(**filters).values(value).first()

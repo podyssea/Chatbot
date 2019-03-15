@@ -77,8 +77,8 @@ class IntentTestCase(TestCase):
 class AncientEgyptAndIllustrationTestCase(TestCase):
     @classmethod
     def setUp(self):
-        ShortCourse.objects.create(Subject_area = 'Archaeology Classical Studies and Egyptology', Title = 'Ancient Egypt and the Bible', Class_code = 9248, Start_time = 19.00, End_time = 21.00, Cost = 125.00, Duration = 64, Tutor = 'Judit Blair', Venue = 'University of Glasgow- Building will be confirmed by email three days before the start date. Room number will be listed at reception on the day/evening of the class', Link_to_Course_specification = 'http://www.gla.ac.uk/coursecatalogue/course/?code=ADED11520E', Description = 'Christian thinking has been greatly influenced by ancient traditions. According to the Bible, throughout history there had always been a contact between the Egyptians and the Israelites. Indeed, Egyptology in the 19th century was mainly concerned with discovering cultural records and thus evidence for certain biblical events. Without intending to prove or disprove the historicity of biblical events or characters, this course looks at similar themes in the religions of ancient Egypt and Israel, as well as key figures using the latest discoveries in the field./', Credits_attached = 10, Language_Level_of_Study_links = 'NA', Start_date = datetime.datetime(2019, 1, 17), End_date = datetime.datetime(2019, 3, 21))
-        ShortCourse.objects.create(Subject_area = 'Art and Art History', Title = 'Botanical painting and illustration', Class_code = 13926, Start_time = 9.30, End_time = 12.30, Cost = 180.00, Duration = 10, Tutor = 'Clare Crines', Venue = 'University of Glasgow- Building will be confirmed by email three days before the start date. Room number will be listed at reception on the day/evening of the class', Link_to_Course_specification = 'http://www.gla.ac.uk/coursecatalogue/course/?code=ADED11217', Description = 'This course is suitable for beginners and students with some previous experience. It is for people with little or no prior drawing experience who want to learn how to draw flowers, fruit and vegetables with ease. Through tutor demonstrations you will see how to use watercolour properly and by the end of the course you will have a body of completed work. Materials are not included.', Credits_attached = 0, Language_Level_of_Study_links = 'NA', Start_date = datetime.datetime(2018, 9, 24), End_date = datetime.datetime(2018, 11, 26))
+        ShortCourse.objects.create(Subject_area = 'Archaeology Classical Studies and Egyptology', Title = 'Ancient Egypt and the Bible', Class_code = 9248, Start_time = 19.00, End_time = 21.00, Cost = 125.00, Duration = 64, Tutor = 'Judit Blair', Venue = 'University of Glasgow- Building will be confirmed by email three days before the start date. Room number will be listed at reception on the day/evening of the class', Link_to_Course_specification = 'http://www.gla.ac.uk/coursecatalogue/course/?code=ADED11520E', Description = 'Christian thinking has been greatly influenced by ancient traditions. According to the Bible, throughout history there had always been a contact between the Egyptians and the Israelites. Indeed, Egyptology in the 19th century was mainly concerned with discovering cultural records and thus evidence for certain biblical events. Without intending to prove or disprove the historicity of biblical events or characters, this course looks at similar themes in the religions of ancient Egypt and Israel, as well as key figures using the latest discoveries in the field./', Credits_attached = 10, Language_Level_of_Study_links = 'NA', Start_date = datetime.date(2019, 1, 17), End_date = datetime.date(2019, 3, 21))
+        ShortCourse.objects.create(Subject_area = 'Art and Art History', Title = 'Botanical painting and illustration', Class_code = 13926, Start_time = 9.30, End_time = 12.30, Cost = 180.00, Duration = 10, Tutor = 'Clare Crines', Venue = 'University of Glasgow- Building will be confirmed by email three days before the start date. Room number will be listed at reception on the day/evening of the class', Link_to_Course_specification = 'http://www.gla.ac.uk/coursecatalogue/course/?code=ADED11217', Description = 'This course is suitable for beginners and students with some previous experience. It is for people with little or no prior drawing experience who want to learn how to draw flowers, fruit and vegetables with ease. Through tutor demonstrations you will see how to use watercolour properly and by the end of the course you will have a body of completed work. Materials are not included.', Credits_attached = 0, Language_Level_of_Study_links = 'NA', Start_date = datetime.date(2018, 9, 24), End_date = datetime.date(2018, 11, 26))
         #ShortCourse.objects.create(Subject_area = 'Creative Writing', Title = 'Writing Fiction', Class_code = 10307, Start_time = 19.00, End_time = 21.00, Cost = 125.00, Duration = 64, Tutor = 'Alan McMunnigall', Venue = 'University of Glasgow- Building will be confirmed by email three days before the start date. Room number will be listed at reception on the day/evening of the class', Link_to_Course_specification = 'http://www.gla.ac.uk/coursecatalogue/course/?code=ADED11217', Description = "This course will focus on the discussion of students' fiction. Literary forms and structures will be discussed. Published work from a range of authors will be studied and students will learn a range of literary techniques that they can develop and employ in their own fiction.", Credits_attached = 0, Language_Level_of_Study_links = 'NA', Start_date = datetime.datetime(2019, 4, 16), End_date = datetime.datetime(2019, 6, 18))
 
 
@@ -97,24 +97,54 @@ class AncientEgyptAndIllustrationTestCase(TestCase):
         subject_courses_list = [row.Title for row in subject_courses]
         self.assertEqual(subject_courses_list, ['Ancient Egypt and the Bible'])
 
-    def test_find_with_id(self):
-        result = ShortCourse.find_with_id('Class_code', {'Tutor': 'Judit Blair'})
+    def test_find_id(self):
+        result = ShortCourse.find_with_filters('Class_code', {'Tutor': 'Judit Blair'})
         self.assertEqual(result.get('Class_code'), 9248)
 
-    def test_find_with_starttime(self):
-        result = ShortCourse.find_with_starttime('Start_time', {'Tutor': 'Judit Blair'})
+    def test_find_starttime(self):
+        result = ShortCourse.find_with_filters('Start_time', {'Tutor': 'Judit Blair'})
         self.assertEqual(result.get('Start_time'), 19.00)
 
-    def test_find_with_endtime(self):
-        result = ShortCourse.find_with_endtime('End_time', {'Tutor': 'Judit Blair'})
+    def test_find_endtime(self):
+        result = ShortCourse.find_with_filters('End_time', {'Tutor': 'Judit Blair'})
         self.assertEqual(result.get('End_time'), 21.00)
 
-    def test_find_with_cost(self):
-        result = ShortCourse.find_with_cost('Cost', {'Tutor': 'Judit Blair'})
+    def test_find_cost(self):
+        result = ShortCourse.find_with_filters('Cost', {'Tutor': 'Judit Blair'})
         self.assertEqual(result.get('Cost'), 125.00)
         
-    def test_find_with_duration(self):
-        result = ShortCourse.find_with_duration('Duration', {'Tutor': 'Judit Blair'})
+    def test_find_duration(self):
+        result = ShortCourse.find_with_filters('Duration', {'Tutor': 'Judit Blair'})
         self.assertEqual(result.get('Duration'), 64)
 
+    def test_find_tutor(self):
+        result = ShortCourse.find_with_filters('Tutor', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('Tutor'), 'Judit Blair')
 
+    def test_find_venue(self):
+        result = ShortCourse.find_with_filters('Venue', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('Venue'), 'University of Glasgow- Building will be confirmed by email three days before the start date. Room number will be listed at reception on the day/evening of the class')
+
+    def test_find_specification(self):
+        result = ShortCourse.find_with_filters('Link_to_Course_specification', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('Link_to_Course_specification'), 'http://www.gla.ac.uk/coursecatalogue/course/?code=ADED11520E')
+
+    def test_find_description(self):
+        result = ShortCourse.find_with_filters('Description', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('Description'), 'Christian thinking has been greatly influenced by ancient traditions. According to the Bible, throughout history there had always been a contact between the Egyptians and the Israelites. Indeed, Egyptology in the 19th century was mainly concerned with discovering cultural records and thus evidence for certain biblical events. Without intending to prove or disprove the historicity of biblical events or characters, this course looks at similar themes in the religions of ancient Egypt and Israel, as well as key figures using the latest discoveries in the field./')
+        
+    def test_find_credits(self):
+        result = ShortCourse.find_with_filters('Credits_attached', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('Credits_attached'), 10)
+
+    def test_find_language(self):
+        result = ShortCourse.find_with_filters('Language_Level_of_Study_links', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('Language_Level_of_Study_links'), 'NA')
+
+    def test_find_startdate(self):
+        result = ShortCourse.find_with_filters('Start_date', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('Start_date'), datetime.date(2019, 1, 17))
+        
+    def test_find_enddate(self):
+        result = ShortCourse.find_with_filters('End_date', {'Tutor': 'Judit Blair'})
+        self.assertEqual(result.get('End_date'), datetime.date(2019, 3, 21))
