@@ -69,7 +69,7 @@ def class_code_or_credits(number, number1, credits, class_code):
     elif credits:
         number = 'Credits_attached'
         number1 = 'UNNECESSARY'
-    elif class_code:
+    elif class_code or number:
         number = 'Class_code'
         number1 = 'UNNECESSARY'
     return number, number1
@@ -80,10 +80,12 @@ def start_or_end(param_date, param_date1, start, end):
         param_date = param_date[0]
     if param_date and param_date1:
         date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
-        date = date + relativedelta(years=-1)
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         param_date = date
         date1 = datetime.datetime.strptime(param_date1[0:10], '%Y-%m-%d').date()
-        date1 = date1 + relativedelta(years=-1)
+        if date1 > datetime.date(2019, 9, 1):
+            date1 = date1 + relativedelta(years=-1)
         param_date1 = date1
         if date > date1:
             date_return = 'End_date'
@@ -95,18 +97,23 @@ def start_or_end(param_date, param_date1, start, end):
             date1_return = 'End_date'
             date_return = 'Start_date'
     elif start or (param_date and not end):
-        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
-        date = date + relativedelta(years=-1)
+        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()        
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         param_date = date
         param_date1 = None
         date_return = 'Start_date'
         date1_return = 'UNNECESSARY'
     elif end:
         date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
-        date = date + relativedelta(years=-1)
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         param_date = date
         param_date1 = None
         date_return = 'End_date'
+        date1_return = 'UNNECESSARY'
+    else:
+        date_return = 'UNNECESSARY'
         date1_return = 'UNNECESSARY'
     return param_date, param_date1, date_return, date1_return
 
@@ -233,7 +240,7 @@ def find_credits(parameters):
 
 def find_description(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'UNNECESSARY', 'date1':'UNNECESSARY', 'desription':'Description'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'UNNECESSARY', 'date1':'UNNECESSARY', 'Description':'UNNECESSARY'}
 
     # figure out if number is ID or credits
     dialog_to_db['number'], dialog_to_db['number1'] = class_code_or_credits(parameters['number'], parameters['number1'], parameters['Credits'], parameters['Class_code'])
@@ -283,11 +290,12 @@ def find_duration(parameters):
 
 def find_end_date(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'Start_date', 'desription':'Description'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'Start_date', 'desription':'Description', 'Date_end':'UNNECESSARY'}
 
     if parameters['date']:
         date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d').date()
-        date = date + relativedelta(years=-1)
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         parameters['date'] = date
 
     # figure out if number is ID or credits
@@ -307,19 +315,21 @@ def find_end_date(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('End_date', given_parameters)
+    hour = ShortCourse.find_with_filters('End_time', given_parameters)
     resp = 'The end date of a course matching that description is '
     time = ' at '
-    return "{}{}{}{}".format(resp, title.get('End_date'), time, title.get('End_time'))
+    return "{}{}{}{}".format(resp, title.get('End_date'), time, hour.get('End_time'))
 
 # ------------           ----------               -----------------            ----------        
 
 def find_start_date(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'End_date', 'desription':'Description'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'End_date', 'desription':'Description', 'Date_end':'UNNECESSARY'}
 
     if parameters['date']:
         date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d').date()
-        date = date + relativedelta(years=-1)
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         parameters['date'] = date
 
         # figure out if number is ID or credits
@@ -339,9 +349,10 @@ def find_start_date(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Start_date', given_parameters)
+    hour = ShortCourse.find_with_filters('Start_time', given_parameters)
     resp = 'The start date of a course matching that description is '
     time = ' at '
-    return "{}{}{}{}".format(resp, title.get('Start_date'), time, title.get('Start_time'))
+    return "{}{}{}{}".format(resp, title.get('Start_date'), time, hour.get('Start_time'))
 
 # ------------           ----------               -----------------            ----------        
 
