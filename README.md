@@ -160,5 +160,5 @@ See [LICENSE](LICENCE) for entire license information.
 ## Acknowledgments
 
 * [Dr. Jeff Dalton](http://www.dcs.gla.ac.uk/~jeff/) - for his incredible help and guidance throughout the entire project lifecycle
-* [React Simple Chatbot](https://lucasbassetti.com.br/react-simple-chatbot/) - Base React component use for frontend
+* [React Simple Chatbot](https://lucasbassetti.com.br/react-simple-chatbot/) - Base React component used for frontend
 
