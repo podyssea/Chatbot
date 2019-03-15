@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
 import pymysql
 
 pymysql.install_as_MySQLdb()
@@ -24,11 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# TODO: set all this secret shit as env variables for django to use
-SECRET_KEY = 'fV04f8NHNx8mHDGkE2eEPh-xwiiM9mthDHY8o-w2E6N-Xu-1Qg8aIf0GFxrpUc1-9_E'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -60,7 +58,7 @@ MIDDLEWARE = [
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = os.getenv('SENDGRID_KEY')
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False  # to be able to test
 
@@ -102,10 +100,10 @@ DATABASES = {
         'OPTIONS': {
             'sql_mode': 'STRICT_ALL_TABLES'
         },
-        'NAME': 'Short_Courses_DB',
-        'USER': 'chatbot',
-        'PASSWORD': 'j2lpq7m9RIIns6muMlmw',
-        'HOST': 'chatbot-db-instance-1.cjxfnn0vqvp8.eu-west-1.rds.amazonaws.com',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '3306'
     }
 }
