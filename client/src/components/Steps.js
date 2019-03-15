@@ -21,7 +21,7 @@ const steps = [
     },
     {
         id: '4',
-        message: 'And if your query cannot be answered, you can send a direct email to the school by asking!',
+        message: 'And if I can\'t answer your query, just ask me to send an email on your behalf to my human colleagues!',
         trigger: 'input'
     },
     {
