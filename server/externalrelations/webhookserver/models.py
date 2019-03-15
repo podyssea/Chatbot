@@ -21,7 +21,7 @@ class ShortCourse(models.Model):
 
     class Meta:
         db_table = 'Short_Courses'
-        managed = False  # to not override the tables
+        #managed = False  # to not override the tables
         verbose_name = 'Short Course'
         verbose_name_plural = 'Short Courses'
 
@@ -44,7 +44,26 @@ class ShortCourse(models.Model):
         return records
 
     @classmethod
-    def find_with_filters(cls, value, filters):
+    def find_with_id(cls, value, filters):
         print(filters)
         return ShortCourse.objects.filter(**filters).values(value).first()
 
+    @classmethod
+    def find_with_starttime(cls, value, filters):
+        print(filters)
+        return ShortCourse.objects.filter(**filters).values(value).first()
+
+    @classmethod
+    def find_with_endtime(cls, value, filters):
+        print(filters)
+        return ShortCourse.objects.filter(**filters).values(value).first()
+
+    @classmethod
+    def find_with_cost(cls, value, filters):
+        print(filters)
+        return ShortCourse.objects.filter(**filters).values(value).first()
+
+    @classmethod
+    def find_with_duration(cls, value, filters):
+        print(filters)
+        return ShortCourse.objects.filter(**filters).values(value).first()
