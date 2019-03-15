@@ -4,7 +4,11 @@ import sys
 import dotenv
 
 if __name__ == '__main__':
-    dotenv.read_dotenv()
+    if os.path.isfile('.env'):
+        dotenv.read_dotenv()
+    else:
+        #     here it should get the variables that gitlab sets - for pipeline testing purposes
+        print("environment file does not exist")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'externalrelations.settings')
     try:
         from django.core.management import execute_from_command_line
