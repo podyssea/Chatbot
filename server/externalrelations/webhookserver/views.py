@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from json import loads
 from smtplib import SMTPException
+from os import getenv
 
 from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
@@ -27,8 +28,8 @@ def webhook(request):
                     send_mail(
                         subject='{} has a query that Gilbert could not answer'.format(name),
                         message='Their query was {} \n\nTheir email is {}.'.format(query, email),
-                        from_email='externalrelationschatbot@gmail.com',
-                        recipient_list=['externalrelationschatbot@gmail.com'],
+                        from_email=getenv('FROM_EMAIL'),
+                        recipient_list=[getenv('CLIENT_EMAIL')],
                         fail_silently=False
                     )
                     return JsonResponse({'fulfillmentText': 'Email sent'})
