@@ -46,6 +46,10 @@ $ npm run dev
 
 ### Running the server
 
+The server needs some environmental variables to be set in order to run properly. You can look in [.env.example](server/externalrelations/.env.example)
+to see the environmental variables that are currently required. Their values can currently be found in the Wiki. Once you have them, within the same folder
+as the example, create a new file called ```.env``` and paste them in there. Be careful not to commit it.
+
 To run the server itself, in the folder where ```manage.py``` exists, run
 ```bash
 $ python manage.py runserver 5000
