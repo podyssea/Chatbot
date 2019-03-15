@@ -6,11 +6,10 @@ test_python:
 #   image: python:3.6
   stage: test
   script:
-    - pip3 uninstall -y python-dotenv
-    # - cd server
-    # - pip3 install -r requirements.txt
-    # - cd externalrelations
-    # - python3 manage.py test
+    - cd server
+    - pip3 install -r requirements.txt
+    - cd externalrelations
+    - python3 manage.py test
 
 # deploy_to_aws:
 # #   image: ubuntu:latest
