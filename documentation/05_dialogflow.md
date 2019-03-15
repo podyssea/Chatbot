@@ -31,3 +31,5 @@ Next the URL of the webhook needs to be specified by going to the Fulfillment ta
 ## Warning
 
 ```Remember to save after you make changes on any screen of Dialogflow as there is no automatic saving```
+
+```Make sure that every intent has parameters 'number', 'number1' (unless it's asking for ID or credits), 'Credits' and/or 'Class_code', 'date' and 'date1' (unless it's asking for a date), 'Date_start' and/or 'Date_end'.
