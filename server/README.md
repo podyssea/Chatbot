@@ -7,7 +7,24 @@ Make sure to
 $ pip install -r requirements.txt
 ```
 
+or if you are not using a virtual environment,
+```bash
+$ pip3 install -r requirements.txt
+```
+
 when in the folder with that file. It is recommended to run the server in a virtual environment.
+
+To run the server itself, in the folder where ```manage.py``` exists, run
+```bash
+$ python manage.py runserver 5000
+```
+
+or if you are not using a virtual environment,
+```bash
+$ python3 manage.py runserver 5000
+```
+
+It is important to run it on port 5000 because to send an email, the client makes a post request to that url.
 
 Use Python 3.6 or above.
 
