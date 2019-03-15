@@ -19,7 +19,6 @@ def webhook(request):
         user_intent = deep_get(data, 'queryResult.intent.displayName')
 
         if user_intent is None:
-            # hacky way to do email
             if deep_get(data, 'type') == 'email':
                 try:
                     name = deep_get(data, 'name')
