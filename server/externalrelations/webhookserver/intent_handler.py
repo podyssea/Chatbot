@@ -1,6 +1,8 @@
-from .models import ShortCourse
-from dateutil.relativedelta import *
 import datetime
+
+from dateutil.relativedelta import *
+
+from .models import ShortCourse
 
 
 def handle(data):
@@ -52,6 +54,7 @@ def specific_subject_courses(subject):
 # ------------------------------------------Many to One questions ------------------------------------
 # ----------------------------------------------------------------------------------------------------
 
+
 # figure out if number is ID or credits
 def class_code_or_credits(number, number1, credits, class_code):
     if isinstance(number, (list,)):
@@ -71,14 +74,15 @@ def class_code_or_credits(number, number1, credits, class_code):
         number1 = 'UNNECESSARY'
     return number, number1
 
+
 def start_or_end(param_date, param_date1, start, end):
-    if isinstance(date, (list,)):
+    if isinstance(param_date, (list,)):
         param_date = param_date[0]
     if param_date and param_date1:
-        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d')
+        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
         date = date + relativedelta(years=-1)
         param_date = date
-        date1 = datetime.datetime.strptime(param_date1[0:10], '%Y-%m-%d')
+        date1 = datetime.datetime.strptime(param_date1[0:10], '%Y-%m-%d').date()
         date1 = date1 + relativedelta(years=-1)
         param_date1 = date1
         if date > date1:
@@ -91,14 +95,14 @@ def start_or_end(param_date, param_date1, start, end):
             date1_return = 'End_date'
             date_return = 'Start_date'
     elif start or (param_date and not end):
-        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d')
+        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
         date = date + relativedelta(years=-1)
         param_date = date
         param_date1 = None
         date_return = 'Start_date'
         date1_return = 'UNNECESSARY'
     elif end:
-        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d')
+        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
         date = date + relativedelta(years=-1)
         param_date = date
         param_date1 = None
@@ -108,7 +112,9 @@ def start_or_end(param_date, param_date1, start, end):
 
 # ------------------------------------------------------------------------------------------------------
 
+
 def find_title(parameters):
+    print(parameters)
     # turn the dialogflow parameter names into database column names
     dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'UNNECESSARY', 'date1':'UNNECESSARY' }
 
@@ -133,6 +139,7 @@ def find_title(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Title', given_parameters)
+    print(title)
     resp = 'The title of a course matching that description is '
     return "{}{}".format(resp, title.get('Title'))
 
@@ -279,7 +286,7 @@ def find_end_date(parameters):
     dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'Start_date', 'desription':'Description'}
 
     if parameters['date']:
-        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d').date()
         date = date + relativedelta(years=-1)
         parameters['date'] = date
 
@@ -311,7 +318,7 @@ def find_start_date(parameters):
     dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'End_date', 'desription':'Description'}
 
     if parameters['date']:
-        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d').date()
         date = date + relativedelta(years=-1)
         parameters['date'] = date
 
