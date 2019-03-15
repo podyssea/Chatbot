@@ -31,7 +31,7 @@ class HandleEmailToClientComponent extends Component {
             name: this.state.name
         };
 
-        axios.post('http://localhost:5000/', data).then(resp => {
+        axios.post('/webhook', data).then(resp => {
             if (resp.data.fulfillmentText === 'Email sent') {
                 console.log('email sent');
                 this.triggerNext('Email has been sent! Thank you.', 'emailConfirm');
