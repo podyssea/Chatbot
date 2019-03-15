@@ -13,7 +13,7 @@ Please ensure all dependancies for both client and server are fully installed in
 
 #### Installing client dependancies
 
-```
+```bash
 $ npm install
 ```
 
@@ -40,7 +40,7 @@ The following commands for running the client and server must be ran simoultaneo
 
 Simply run
 
-```
+```bash
 $ npm run dev
 ```
 
@@ -64,12 +64,12 @@ These tests have been developed using the Cypress testing framework
 First navigate to the `client` directory
 
 To install cypress run the following command
-```
+```bash
 $ npm install cypress
 ```
 To run the tests:
 
-```
+```bash
 $ npm run cypress:open
 ```
 
@@ -92,7 +92,7 @@ $ python3 manage.py test
 
 Within the `client` directory
 
-```
+```bash
 $ npm run build
 ```
 
@@ -105,44 +105,53 @@ Depending on your needs, you might want to do more optimization to the productio
 
 Run in development
 
-```
+```bash
 $ npm run dev:bundleanalyzer
 ```
 
 Run on the production optimized build
 
-```
+```bash
 $ npm run build:bundleanalyzer
 ```
 
 
 ## Built With
 
-* [React](https://reactjs.org/) - Frontend Library
-* [DialogFlow](https://dialogflow.com) - Chat-Bot API
-* [Django](https://www.djangoproject.com/) - Web Framework
-* [Firebase](https://firebase.google.com/) - ???
-* add more here ?????
+- [DialogFlow](https://dialogflow.com/) - Chatbot
+- [Firebase](https://firebase.google.com/) - Communication between client and DialogFlow
+- [ReactJS](https://reactjs.org/) - The actual frontend that the user sees
+- [React-Simple-Chatbot](https://lucasbassetti.com.br/react-simple-chatbot/) - The client framework
+- [Cypress](https://www.cypress.io/) - For testing the frontend
+- [ResponsiveVoiceJS](https://responsivevoice.org/api/) - For text to speech capabilities
+- [Django](https://www.djangoproject.com/) - For the backend server
+- [SendGrid](https://sendgrid.com/) - To send email to the clients
+- [AWS](https://aws.amazon.com) - To host the database and server
+- [MySQL](https://www.mysql.com/) - The database
+- [TypeForm](https://www.typeform.com/) - The feedback form that appears at the end
 
-## Contributing
+## Contributors
 
-Please read [CONTRIBUTING.md](http://stgit.dcs.gla.ac.uk/tp3-2018-se07/dissertation/blob/documentation/Contiributing.md) for our contact details.
+Please read [Contributors.md](Contributors.md) for our contact details.
 
 
 ## Authors
 
-* **Anguel Hristozov** - *Backend*
-* **Justyna Toporkiewicz** - *DialogFlow*
-* **Hannah Mehravari** - *Frontend*
-* **Odysseas Polycarpou** - *DialogFlow*
-* **Martin Manov** - *DialogFlow*
+- **Anguel Hristozov**
+- **Justyna Toporkiewicz**
+- **Hannah Mehravari**
+- **Odysseas Polycarpou**
+- **Martin Manov**
 
 
 ## License
 
-???
+MIT
+
+See [LICENSE](LICENCE) for entire license information.
 
 ## Acknowledgments
 
+* [Dr. Jeff Dalton](http://www.dcs.gla.ac.uk/~jeff/) - for his incredible help and guidance throughout the entire project lifecycle
 * [React Simple Chatbot](https://lucasbassetti.com.br/react-simple-chatbot/) - Base React component use for frontend
-* add more here ????
+
