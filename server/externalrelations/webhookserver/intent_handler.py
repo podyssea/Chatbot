@@ -1,6 +1,8 @@
-from .models import ShortCourse
-from dateutil.relativedelta import *
 import datetime
+
+from dateutil.relativedelta import *
+
+from .models import ShortCourse
 
 
 def handle(data):
@@ -52,6 +54,7 @@ def specific_subject_courses(subject):
 # ------------------------------------------Many to One questions ------------------------------------
 # ----------------------------------------------------------------------------------------------------
 
+
 # figure out if number is ID or credits
 def class_code_or_credits(number, number1, credits, class_code):
     if isinstance(number, (list,)):
@@ -66,20 +69,23 @@ def class_code_or_credits(number, number1, credits, class_code):
     elif credits:
         number = 'Credits_attached'
         number1 = 'UNNECESSARY'
-    elif class_code:
+    elif class_code or number:
         number = 'Class_code'
         number1 = 'UNNECESSARY'
     return number, number1
 
+
 def start_or_end(param_date, param_date1, start, end):
-    if isinstance(date, (list,)):
+    if isinstance(param_date, (list,)):
         param_date = param_date[0]
     if param_date and param_date1:
-        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d')
-        date = date + relativedelta(years=-1)
+        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         param_date = date
-        date1 = datetime.datetime.strptime(param_date1[0:10], '%Y-%m-%d')
-        date1 = date1 + relativedelta(years=-1)
+        date1 = datetime.datetime.strptime(param_date1[0:10], '%Y-%m-%d').date()
+        if date1 > datetime.date(2019, 9, 1):
+            date1 = date1 + relativedelta(years=-1)
         param_date1 = date1
         if date > date1:
             date_return = 'End_date'
@@ -91,24 +97,31 @@ def start_or_end(param_date, param_date1, start, end):
             date1_return = 'End_date'
             date_return = 'Start_date'
     elif start or (param_date and not end):
-        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d')
-        date = date + relativedelta(years=-1)
+        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()        
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         param_date = date
         param_date1 = None
         date_return = 'Start_date'
         date1_return = 'UNNECESSARY'
     elif end:
-        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d')
-        date = date + relativedelta(years=-1)
+        date = datetime.datetime.strptime(param_date[0:10], '%Y-%m-%d').date()
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         param_date = date
         param_date1 = None
         date_return = 'End_date'
+        date1_return = 'UNNECESSARY'
+    else:
+        date_return = 'UNNECESSARY'
         date1_return = 'UNNECESSARY'
     return param_date, param_date1, date_return, date1_return
 
 # ------------------------------------------------------------------------------------------------------
 
+
 def find_title(parameters):
+    print(parameters)
     # turn the dialogflow parameter names into database column names
     dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'UNNECESSARY', 'date1':'UNNECESSARY' }
 
@@ -118,7 +131,6 @@ def find_title(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters['Start_date'])
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -133,6 +145,7 @@ def find_title(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Title', given_parameters)
+    print(title)
     resp = 'The title of a course matching that description is '
     return "{}{}".format(resp, title.get('Title'))
 
@@ -146,7 +159,6 @@ def find_id(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -177,7 +189,6 @@ def find_cost(parameters):
  
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -204,7 +215,6 @@ def find_credits(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -226,7 +236,7 @@ def find_credits(parameters):
 
 def find_description(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'UNNECESSARY', 'date1':'UNNECESSARY', 'desription':'Description'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Date_end':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'UNNECESSARY', 'date1':'UNNECESSARY', 'Description':'UNNECESSARY'}
 
     # figure out if number is ID or credits
     dialog_to_db['number'], dialog_to_db['number1'] = class_code_or_credits(parameters['number'], parameters['number1'], parameters['Credits'], parameters['Class_code'])
@@ -234,7 +244,6 @@ def find_description(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -262,7 +271,6 @@ def find_duration(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -276,18 +284,18 @@ def find_duration(parameters):
 
 def find_end_date(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'Start_date', 'desription':'Description'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'Start_date', 'desription':'Description', 'Date_end':'UNNECESSARY'}
 
     if parameters['date']:
-        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
-        date = date + relativedelta(years=-1)
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d').date()
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         parameters['date'] = date
 
     # figure out if number is ID or credits
     dialog_to_db['number'], dialog_to_db['number1'] = class_code_or_credits(parameters['number'], parameters['number1'], parameters['Credits'], parameters['Class_code'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -300,26 +308,27 @@ def find_end_date(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('End_date', given_parameters)
+    hour = ShortCourse.find_with_filters('End_time', given_parameters)
     resp = 'The end date of a course matching that description is '
     time = ' at '
-    return "{}{}{}{}".format(resp, title.get('End_date'), time, title.get('End_time'))
+    return "{}{}{}{}".format(resp, title.get('End_date'), time, hour.get('End_time'))
 
 # ------------           ----------               -----------------            ----------        
 
 def find_start_date(parameters):
     # turn the dialogflow parameter names into database column names
-    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'End_date', 'desription':'Description'}
+    dialog_to_db = {'Subject_area':'Subject_area', 'unit-currency':'Cost', 'duration':'Duration', 'Course':'Title', 'Lecturer':'Tutor','location':'Venue', 'Keyword_Course':'UNNECESSARY', 'Cost':'UNNECESSARY', 'Credits':'UNNECESSARY', 'Class_code':'UNNECESSARY', 'Date_start':'UNNECESSARY', 'Keyword_Subject_Area':'UNNECESSARY', 'Keyword_Lecturer':'UNNECESSARY',  'number':'UNNECESSARY', 'number1':'UNNECESSARY', 'date':'End_date', 'desription':'Description', 'Date_end':'UNNECESSARY'}
 
     if parameters['date']:
-        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d')
-        date = date + relativedelta(years=-1)
+        date = datetime.datetime.strptime(parameters['date'][0:10], '%Y-%m-%d').date()
+        if date > datetime.date(2019, 9, 1):
+            date = date + relativedelta(years=-1)
         parameters['date'] = date
 
         # figure out if number is ID or credits
     dialog_to_db['number'], dialog_to_db['number1'] = class_code_or_credits(parameters['number'], parameters['number1'], parameters['Credits'], parameters['Class_code'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -332,9 +341,10 @@ def find_start_date(parameters):
             elif v['unit'] == 'month':
                 given_parameters[k] = v['amount']*30
     title = ShortCourse.find_with_filters('Start_date', given_parameters)
+    hour = ShortCourse.find_with_filters('Start_time', given_parameters)
     resp = 'The start date of a course matching that description is '
     time = ' at '
-    return "{}{}{}{}".format(resp, title.get('Start_date'), time, title.get('Start_time'))
+    return "{}{}{}{}".format(resp, title.get('Start_date'), time, hour.get('Start_time'))
 
 # ------------           ----------               -----------------            ----------        
 
@@ -348,7 +358,6 @@ def find_lecturer(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -377,7 +386,6 @@ def find_subject_area(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -405,7 +413,6 @@ def find_venue(parameters):
     parameters['date'], parameters['date1'], dialog_to_db['date'], dialog_to_db['date1'] = start_or_end(parameters['date'], parameters['date1'], parameters['Date_start'], parameters['Date_end'])
  
     given_parameters = {dialog_to_db[k]: v for k, v in parameters.items() if v != "" and v != [] and ".original" not in k}
-    print(given_parameters)
     del given_parameters['UNNECESSARY']
     for k, v in given_parameters.items():
         if isinstance(v, (list,)):
@@ -422,6 +429,5 @@ def find_venue(parameters):
         return 'The venue for this course has not been confirmed yet. Room number will be listed at reception on the day/evening of the class'
     resp = 'The venue for a course matching that description is '
     return "{}{}".format(resp, title.get('Venue'))
-
 
 
