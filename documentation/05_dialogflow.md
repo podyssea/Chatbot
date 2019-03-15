@@ -26,7 +26,7 @@ The default responses, which are written directly in the Dialogflow, in appropra
 
 To enable creating reponses that match the parameters entered by the user there has to be a webhook which will connect the tool to back-end. This can be enabled at the bottom of each intent page.
 
-Next the URL of the webhook needs to be specified by going to the Fulfillment tab, enabling webhooks there and inputting an active ngrok URL.
+Next the URL of the webhook needs to be specified by going to the Fulfillment tab, enabling webhooks there and inputting an active URL. We used ngrok to generate urls for local testing, and then when the chatbot was live, we used an actual domain url.
 
 ## Warning
 
