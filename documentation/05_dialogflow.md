@@ -14,7 +14,7 @@ Entities are key word types that the tool can learn and use for categorisation a
 
 For example: Entity: Animals, Entry: dog - golden retriver, pug
 
-These entities would be picked up in text and placed into a parameter '''Animals''' as value '''dog'''.
+These entities would be picked up in text and placed into a parameter ```Animals``` as value ```dog```
 
 ### Results
 
@@ -30,4 +30,4 @@ Next the URL of the webhook needs to be specified by going to the Fulfillment ta
 
 ## Warning
 
-'''Remember to save after you make changes on any screen of Dialogflow as there is no automatic saving'''
+```Remember to save after you make changes on any screen of Dialogflow as there is no automatic saving```
