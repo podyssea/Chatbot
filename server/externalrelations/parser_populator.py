@@ -6,10 +6,10 @@ import re #regular expressions
 from itertools import combinations #combinations for synonyms
 import itertools #synonyms
 
-# Process: Create a dictionary of the entries and the synonyms of the given entity
 # Input: data - a single column of the data (as in a table)
-# Output: dictionary of {title: [synonyms]}
+# Output: CSV format text that has to be copy pasted in raw mode of entities in DialogFlow
 
+#Gets the file
 def populate_entity(filename):
   # Open the csv file and ...
   dataFile = open(filename, encoding="utf8")
@@ -18,61 +18,27 @@ def populate_entity(filename):
   dataRead = dataRead.splitlines()
   data = list(csv.reader(dataRead))
   return data
-  # Populate the Course entity in Dialogflow
-  #populate_Course(data)
   
-
+#Change the file name (needs to be of the same structure as the the first one)
 archive = populate_entity('Short_Courses_Data.csv')
 
+#Creates two empty temporary lists
 subject = []
 course = []
 
 for entry in archive:
-  #gives the subject area + title
   subject.append(entry[0])
   course.append(entry[1])
 
 subject.pop(0)
 course.pop(0)
 
+#This gives two lists one for subject and one for course that contain all the needed information
+# that will be copy-pasted in the raw mode of the DIALOGFLOW entities
 subject_list = list(dict.fromkeys(subject))
 course_list = list(dict.fromkeys(course))
 
-#print(subject_list)
-#print(course_list)
-
-def obtain_data(data):
-  
-  for entry in data:
-      splitted = re.findall(r"[\w']+|[.,!?;]", data)
-
-      for word in splitted:
-          if (word in useless or word in sep):
-              splitted.remove(word)
-          elif len(word) == 1:
-              splitted.remove(word)
-
-      results = [' '.join(splitted[i:j]) for i, j in combinations(range(len(splitted) + 1), 2)]
-
-      list_of_lists = [[i] for i in results]
-
-      for entry in list_of_lists:
-          length_syn = len(entry[0].split())
-          if length_syn == 1:
-              list_of_lists.remove(entry)
-
-      flattened = [val for sublist in list_of_lists for val in sublist]
-
-      synonyms[entry] = flattened
-
-  return synonyms
-
-useless = ["in", "the", "to", "of", "at", "on", "out","an", "a"]
-sep = [",",":", "-", ".", ";", "(", "[", "{", ")", "]", "}"]
-
-synonyms = {}
-
-#This is the important part<<<<<<---------------
+#--------------->>>>>>This is the important part<<<<<<---------------
 for each in course_list:
       splitted = re.findall(r"[\w']+|[.,!?;]", each)
 
