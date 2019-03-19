@@ -149,3 +149,8 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/login/'
 
 USE_X_FORWARDED_HOST = True
+STATIC_ROOT = '/django_static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
