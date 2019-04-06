@@ -1,5 +1,6 @@
 stages:
   - test
+  - build
 #   - deploy
 
 test_python:
@@ -10,6 +11,15 @@ test_python:
     - pip3 install -r requirements.txt
     - cd externalrelations
     - python3 manage.py test
+
+build_dissertation:
+  stage: build
+  script:
+    - cd dissertation
+    - latexmk -pdf dissertation.tex
+  artifacts:
+    paths:
+      - "dissertation/*.pdf"
 
 # deploy_to_aws:
 # #   image: ubuntu:latest
