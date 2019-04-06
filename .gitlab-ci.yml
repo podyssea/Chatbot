@@ -19,7 +19,7 @@ build_dissertation:
     - latexmk -pdf dissertation.tex
   artifacts:
     paths:
-      - "*.pdf"
+      - "dissertation/*.pdf"
 
 # deploy_to_aws:
 # #   image: ubuntu:latest
